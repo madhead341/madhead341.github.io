@@ -5,12 +5,15 @@ function deleting() {
   div.style.display = "none";
 }
 
-function button_1_click() {
+var button = document.getElementById("button_1");
+
+button.addEventListener("click", function() {
   audio.play();
   var div = document.getElementById("black-screen");
   div.style.display = "none";
   deleting();
-}
+});
+
 
 var customCursor = document.createElement("div");
 customCursor.classList.add("custom-cursor");
