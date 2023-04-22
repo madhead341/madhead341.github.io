@@ -53,6 +53,4 @@ changeTitle();
 
 window.addEventListener("load", function() {
   audio.play();
-  siteWrapper.style.filter = "none";
-  loadingScreen.style.display = "none";
 });
