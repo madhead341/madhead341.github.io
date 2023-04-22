@@ -5,7 +5,19 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>LO$R#0001 best python developer</title>
+  <title>Best Python Developer</title>
+  <script>
+      function changeTitle() {
+        const titles = ["LO$R", "Best Python Developer", "Let There Be Light.", "God Is Good"];
+        const randomIndex = Math.floor(Math.random() * titles.length);
+        const randomTitle = titles[randomIndex];
+        document.title = randomTitle;
+        setTimeout(changeTitle, 5000);
+      }
+
+      changeTitle();
+    </script>
+  
   <meta content="" name="description">
   <meta content="" name="keywords">
 
