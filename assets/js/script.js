@@ -16,9 +16,22 @@ document.addEventListener("mousemove", function(event) {
 });
 
 
-document.querySelector('.loading-screen').addEventListener('click', function() {
-  document.querySelector('.loading-screen').style.display = 'none';
+document.addEventListener('click', function() {
+  var loadingScreen = document.getElementById('loading-screen');
+  loadingScreen.style.display = 'none';
 });
+
+window.onload = function() {
+
+  var loadingScreen = document.getElementById('loading-screen');
+  loadingScreen.style.display = 'block';
+  
+  document.addEventListener('click', function() {
+    loadingScreen.style.display = 'none';
+  });
+};
+
+
 
 
 const songs = [
