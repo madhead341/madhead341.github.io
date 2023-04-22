@@ -170,6 +170,8 @@ html {
   }
 }
 
+.ACTUAL_SITE {
+  display: none;
 
 html, body {
   height: 100%;
