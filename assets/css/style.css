@@ -45,7 +45,7 @@ html, body {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: #fff;
+  background-color: #FFFFFF;
   mix-blend-mode: difference;
   transition: transform 0.1s ease-out;
   transform: translate(-50%, -50%);
