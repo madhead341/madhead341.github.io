@@ -14,6 +14,12 @@ document.addEventListener("scroll", function() {
   customCursor.style.top = event.clientY + scrollY + "px";
 });
 
+window.onload = function() {
+  var blackScreen = document.getElementById("black-screen");
+  
+  blackScreen.addEventListener("click", function() {
+    blackScreen.style.display = "none";
+ 
 function button_1_click() {
   audio.play();
   var div = document.getElementById("SITE");
