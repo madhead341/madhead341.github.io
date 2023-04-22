@@ -1,11 +1,3 @@
-function changeTitle() {
-  const titles = ["LO$R", "Best Python Dev", "Have Fun", "Kung Fu Kenny", "King Kunta", "Ripcord", "God is Good"];
-  const randomIndex = Math.floor(Math.random() * titles.length);
-  const randomTitle = titles[randomIndex];
-  document.title = randomTitle;
-  setTimeout(changeTitle, 5000);
-}
-
 var siteWrapper = document.querySelector(".site-wrapper");
 var loadingScreen = document.querySelector(".loading-screen");
 siteWrapper.style.filter = "blur(10px)";
@@ -50,10 +42,4 @@ var path = "/assets/music/" + random_song;
 var audio = new Audio(path);
 audio.loop = true;
 audio.preload = "auto";
-audio.addEventListener("canplaythrough", function() {
-  siteWrapper.style.filter = "";
-  loadingScreen.style.display = "none";
-  audio.play();
-  changeTitle();
-});
-
+changeTitle();
