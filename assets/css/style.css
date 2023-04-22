@@ -28,7 +28,7 @@ html {
   display: none;
 }
 
-.button_1 {
+.Enter {
   font-family: "VT323", monospace;
   z-index: 99999;
   position: fixed;
@@ -81,7 +81,7 @@ html {
   }
 }
 
-.button_1:hover {
+.Enter:hover {
   color: red;
   transition: 1.5s;
   transform: scale(1.5);
@@ -91,7 +91,7 @@ html {
   transition: 0.5s ease-out;
 }
 
-button.button_1:hover {
+button.Enter:hover {
   animation-name: shake;
   animation-duration: 0.8s;
   animation-iteration-count: infinite;
