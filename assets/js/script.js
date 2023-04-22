@@ -7,14 +7,18 @@ var customCursor = document.createElement("div");
 customCursor.classList.add("custom-cursor");
 document.body.appendChild(customCursor);
 
+// Update cursor position on mousemove
 document.addEventListener("mousemove", function(event) {
   customCursor.style.left = event.clientX + "px";
   customCursor.style.top = event.clientY + "px";
 });
 
-document.addEventListener("scroll", function(event) {
-  customCursor.style.left = event.clientX + "px";
-  customCursor.style.top = event.clientY + "px";
+// Update cursor position on scroll
+document.addEventListener("scroll", function() {
+  var scrollX = window.scrollX || window.pageXOffset;
+  var scrollY = window.scrollY || window.pageYOffset;
+  customCursor.style.left = event.clientX + scrollX + "px";
+  customCursor.style.top = event.clientY + scrollY + "px";
 });
 
 var songs = [
@@ -39,8 +43,7 @@ var songs = [
   "True Religion Fein - Chief Keef.mp3",
   "Walk - Comethanize.mp3",
   "Wesley's Theory - Kendrick Lamar.mp3",
-];
-
+]
 var random_song = songs[Math.floor(Math.random() * songs.length)];
 var path = "/assets/music/" + random_song;
 var audio = new Audio(path);
