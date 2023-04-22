@@ -49,6 +49,7 @@ html, body {
   mix-blend-mode: difference;
   transition: transform 0.1s ease-out;
   transform: translate(-50%, -50%);
+  pointer-events: none;
 }
 
 
