@@ -1,15 +1,15 @@
-function button_1_click() {
-  audio.play();
-  var div = document.getElementById("black-screen");
-  div.style.display = "none";
-  deleting();
-}
-
 function deleting() {
   var button = document.getElementById("button_1");
   button.style.display = "none";
   var div = document.getElementById("black-screen");
   div.style.display = "none";
+}
+
+function button_1_click() {
+  audio.play();
+  var div = document.getElementById("black-screen");
+  div.style.display = "none";
+  deleting();
 }
 
 var customCursor = document.createElement("div");
