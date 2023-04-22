@@ -1,3 +1,26 @@
+
+var siteWrapper = document.querySelector(".site-wrapper");
+var loadingScreen = document.querySelector(".loading-screen");
+siteWrapper.style.filter = "blur(10px)";
+loadingScreen.style.display = "flex";
+
+
+var customCursor = document.createElement("div");
+customCursor.classList.add("custom-cursor");
+document.body.appendChild(customCursor);
+
+
+document.addEventListener("mousemove", function(event) {
+  customCursor.style.left = event.clientX + "px";
+  customCursor.style.top = event.clientY + "px";
+});
+
+
+document.addEventListener("click", function() {
+  siteWrapper.style.filter = "blur(0)";
+  loadingScreen.style.display = "none";
+});
+
 const songs = [
   "assets/music/Cant Trust - Keef Chief.mp3",
   "assets/music/Control - Ab-Soul.mp3",
