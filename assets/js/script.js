@@ -1,3 +1,10 @@
+function changeTitle() {
+  const titles = ["LO$R", "Best Python Dev", "Have Fun", "Kung Fu Kenny", "King Kunta", "Ripcord", "God is Good"];
+  const randomIndex = Math.floor(Math.random() * titles.length);
+  const randomTitle = titles[randomIndex];
+  document.title = randomTitle;
+  setTimeout(changeTitle, 5000);
+}
 
 var siteWrapper = document.querySelector(".site-wrapper");
 var loadingScreen = document.querySelector(".loading-screen");
@@ -15,7 +22,7 @@ document.addEventListener("mousemove", function(event) {
   customCursor.style.top = event.clientY + "px";
 });
 
-const songs = [
+var songs = [
   "assets/music/Cant Trust - Keef Chief.mp3",
   "assets/music/Control - Ab-Soul.mp3",
   "assets/music/DNA - Kendrick Lamar.mp3",
@@ -37,31 +44,10 @@ const songs = [
   "assets/music/True Religion Fein - Chief Keef.mp3",
   "assets/music/Walk - Comethanize.mp3",
   "assets/music/Wesley's Theory - Kendrick Lamar.mp3",
-];
-
-
-var randomIndex = Math.floor(Math.random() * songs.length);
-var randomSong = songs[randomIndex];
-
-var audio = document.getElementById('audio');
-audio.src = randomSong;
-
-document.addEventListener("click", function() {
-  audio.play();
-  audio.loop = true;
-});
-
-audio.onended = function() {
-  
-  var newIndex = Math.floor(Math.random() * songs.length);
-  var newSong = songs[newIndex];
-  
-  audio.src = newSong;
-  
-  audio.oncanplay = function() {
-    document.addEventListener("click", function() {
-      audio.play();
-      audio.loop = true;
-    });
-  };
-};
+]
+var random_song = songs[Math.floor(Math.random() * songs.length)];
+var path = "/static/assets/music/" + random_song;
+var audio = new Audio(path);
+audio.loop = true;
+audio.preload = "auto";
+changeTitle();
