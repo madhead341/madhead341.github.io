@@ -102,8 +102,8 @@ html, body {
 }
 
 .custom-cursor {
-  width: 20px;
-  height: 20px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
   background-color: white;
   box-shadow: 0 0 5px 1px black;
@@ -112,7 +112,7 @@ html, body {
 }
 
 body {
-  cursor: none;
+  cursor: custom-cursor;
 }
 
 document.addEventListener("mousemove", function(event) {
