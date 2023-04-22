@@ -36,14 +36,11 @@ html, body {
   animation: spin 1s linear infinite;
 }
 
-.site-wrapper {
-  filter: blur(0);
-  transition: filter 0.5s ease;
 .custom-cursor {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 99999999999999999999999999999999999999999999999;
+  z-index: 999999999999999999999999999999999999;
   pointer-events: none;
   width: 3mm;
   height: 3mm;
