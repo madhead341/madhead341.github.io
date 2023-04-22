@@ -1,3 +1,17 @@
+function button_1_click() {
+  audio.play();
+  var div = document.getElementById("black-screen");
+  div.style.display = "block";
+  deleting()
+}
+
+function deleting() {
+  var button = document.getElementById("button_1");
+  button.style.display = "none";
+  var div = document.getElementById("black-screen");
+  div.style.display = "none";
+}
+
 var customCursor = document.createElement("div");
 customCursor.classList.add("custom-cursor");
 document.body.appendChild(customCursor);
@@ -13,20 +27,6 @@ document.addEventListener("scroll", function() {
   customCursor.style.left = event.clientX + scrollX + "px";
   customCursor.style.top = event.clientY + scrollY + "px";
 });
- 
-function button_1_click() {
-  audio.play();
-  var div = document.getElementById("black-screen");
-  div.style.display = "block";
-  deleting()
-}
-
-function deleting() {
-  var button = document.getElementById("button_1");
-  button.style.display = "none";
-  var div = document.getElementById("black-screen");
-  div.style.display = "none";
-}
 
     
     var songs = [
