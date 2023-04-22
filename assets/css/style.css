@@ -105,7 +105,7 @@ html, body {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 999999999999999999999999999999999999;
+  z-index: 9;
   pointer-events: none;
   width: 3px;
   height: 3px;
@@ -144,29 +144,20 @@ body {
   cursor: none;
 }
 
-/* Create a new class called 'custom-cursor' */
 .custom-cursor {
-  /* Set the width and height of the cursor to 20px */
   width: 20px;
   height: 20px;
-  /* Set the border radius to 50% to create a circular shape */
   border-radius: 50%;
-  /* Set the background color to white */
   background-color: white;
-  /* Set the box-shadow to create a black shadow around the cursor */
   box-shadow: 0 0 5px 1px black;
-  /* Set the position to absolute so that the cursor can be positioned freely */
   position: absolute;
-  /* Set the z-index to be higher than other elements to ensure the cursor is always on top */
-  z-index: 9999;
+  z-index: 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;
 }
 
-/* Add the 'custom-cursor' class to the body */
 body {
   cursor: none;
 }
 
-/* Update the position of the cursor using JavaScript */
 document.addEventListener("mousemove", function(event) {
   var x = event.clientX;
   var y = event.clientY;
