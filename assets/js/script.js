@@ -13,16 +13,10 @@ document.addEventListener("scroll", function() {
   customCursor.style.left = event.clientX + scrollX + "px";
   customCursor.style.top = event.clientY + scrollY + "px";
 });
-
-window.onload = function() {
-  var blackScreen = document.getElementById("black-screen");
-  
-  blackScreen.addEventListener("click", function() {
-    blackScreen.style.display = "none";
  
 function button_1_click() {
   audio.play();
-  var div = document.getElementById("SITE");
+  var div = document.getElementById("black-screen");
   div.style.display = "block";
   deleting()
 }
