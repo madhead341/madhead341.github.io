@@ -1,8 +1,3 @@
-var siteWrapper = document.querySelector(".site-wrapper");
-var loadingScreen = document.querySelector(".loading-screen");
-siteWrapper.style.filter = "blur(10px)";
-loadingScreen.style.display = "flex";
-
 var customCursor = document.createElement("div");
 customCursor.classList.add("custom-cursor");
 document.body.appendChild(customCursor);
