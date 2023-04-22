@@ -45,6 +45,13 @@ html, body {
   z-index: 99999;
   pointer-events: none;
 }
+#cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999; /* Increase z-index to ensure the cursor is on top */
+  pointer-events: none; /* Prevent cursor from interfering with click events */
+}
 
 @keyframes spin {
   to {
