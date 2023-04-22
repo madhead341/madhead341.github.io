@@ -49,6 +49,10 @@ html, body {
   mix-blend-mode: difference;
   transition: transform 0.1s ease-out;
   transform: translate(-50%, -50%);
+  document.addEventListener("scroll", function(event) {
+  customCursor.style.left = event.clientX + "px";
+  customCursor.style.top = event.clientY + "px";
+});
 }
 
 html {
@@ -60,12 +64,6 @@ html {
 body {
   cursor: none;
 }
-
-/* Add the following code to update the cursor position when scrolling */
-document.addEventListener("scroll", function(event) {
-  customCursor.style.left = event.clientX + "px";
-  customCursor.style.top = event.clientY + "px";
-});
 
 }
 @keyframes spin {
