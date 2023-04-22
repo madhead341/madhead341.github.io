@@ -15,25 +15,6 @@ document.addEventListener("mousemove", function(event) {
   customCursor.style.top = event.clientY + "px";
 });
 
-
-document.addEventListener('click', function() {
-  var loadingScreen = document.getElementById('loading-screen');
-  loadingScreen.style.display = 'none';
-});
-
-window.onload = function() {
-
-  var loadingScreen = document.getElementById('loading-screen');
-  loadingScreen.style.display = 'block';
-  
-  document.addEventListener('click', function() {
-    loadingScreen.style.display = 'none';
-  });
-};
-
-
-
-
 const songs = [
   "assets/music/Cant Trust - Keef Chief.mp3",
   "assets/music/Control - Ab-Soul.mp3",
