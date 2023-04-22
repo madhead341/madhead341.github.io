@@ -1,30 +1,64 @@
-.black-button {
-  background-color: black;
-  color: black;
-  border: none;
-  padding: 8px 16px;
-  font-size: 16px;
-  border-radius: 4px;
+@import url("https://fonts.googleapis.com/css?family=VT323");
+
+html {
+  cursor: url("data:image/svg+xml,%3Csvg height='6' width='6' viewBox='0 0 8 8' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='4' cy='4' fill='%23eee' r='4'/%3E%3C/svg%3E")
+      3 3,
+    auto;
 }
 
-#black-screen {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: black;
-  color: black;
+.Enter {
+  font-family: "VT323", monospace;
+  position: relative;
+  font-size: 50px;
+  color: white;
+  text-align: center;
+  margin: 0;
   border: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-  font-size: 48px;
-  font-family: Arial, sans-serif;
+  background: none;
+  animation: spaz 3s;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
+  cursor: url("data:image/svg+xml,%3Csvg height='6' width='6' viewBox='0 0 8 8' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='4' cy='4' fill='%23eee' r='4'/%3E%3C/svg%3E")
+      3 3,
+    auto;
+  transition: 0.5s ease-out;
 }
 
-#black-screen:hover {
+
+@keyframes spaz {
+  10% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  20% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  30% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+  40% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  50% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  60% {
+    transform: translate(-1px, 1px) rotate(-1deg);
+  }
+  70% {
+    transform: translate(-3px, -2px) rotate(0deg);
+  }
+  80% {
+    transform: translate(3px, 0px) rotate(-1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(1deg);
+  }
+  100% {
+    transform: translate(-1px, -1px) rotate(0deg);
+  }
+}
+
+.Enter:hover {
   color: red;
   transition: 1.5s;
   transform: scale(1.5);
@@ -34,7 +68,7 @@
   transition: 0.5s ease-out;
 }
 
-button#black-screen:hover {
+button.Enter:hover {
   animation-name: shake;
   animation-duration: 0.8s;
   animation-iteration-count: infinite;
