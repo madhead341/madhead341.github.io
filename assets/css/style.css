@@ -102,21 +102,25 @@ html, body {
 }
 
 .custom-cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 9;
-  pointer-events: none;
-  width: 3px;
-  height: 3px;
-  border-radius: 0%;
-  background-color: none;
-  mix-blend-mode: difference;
-  transition: transform 0.1s ease-out;
-  transform: translate(-50%, -50%);
-  document.addEventListener("scroll", function(event) {
-  customCursor.style.left = event.clientX + "px";
-  customCursor.style.top = event.clientY + "px";
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: white;
+  box-shadow: 0 0 5px 1px black;
+  position: absolute;
+  z-index: 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;
+}
+
+body {
+  cursor: none;
+}
+
+document.addEventListener("mousemove", function(event) {
+  var x = event.clientX;
+  var y = event.clientY;
+  var cursor = document.querySelector(".custom-cursor");
+  cursor.style.left = x + "px";
+  cursor.style.top = y + "px";
 });
 
 html {
@@ -143,28 +147,6 @@ body {
   /* Set the cursor to none to hide the default cursor */
   cursor: none;
 }
-
-.custom-cursor {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: white;
-  box-shadow: 0 0 5px 1px black;
-  position: absolute;
-  z-index: 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;
-}
-
-body {
-  cursor: none;
-}
-
-document.addEventListener("mousemove", function(event) {
-  var x = event.clientX;
-  var y = event.clientY;
-  var cursor = document.querySelector(".custom-cursor");
-  cursor.style.left = x + "px";
-  cursor.style.top = y + "px";
-});
 
 body {
   background-color: #f5f5f5;
