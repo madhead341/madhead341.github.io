@@ -54,6 +54,41 @@
       });
     </script>
   
+  <script>
+      fetch("/assets/music")
+        .then((response) => response.text())
+        .then((text) => {
+
+          let songs = text.split("\n").filter((filename) => {
+            return filename.endsWith(".mp3");
+          });
+
+          let shuffledSongs = shuffleArray(songs);
+
+          let currentSongIndex = 0;
+
+          function playNextSong() {
+            let currentSong = shuffledSongs[currentSongIndex];
+            let audio = new Audio("/assets/music/" + currentSong);
+            audio.addEventListener("ended", function () {
+              currentSongIndex = (currentSongIndex + 1) % shuffledSongs.length;
+              playNextSong();
+            });
+            audio.play();
+          }
+
+          playNextSong();
+
+          function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+              let j = Math.floor(Math.random() * (i + 1));
+              [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+          }
+        });
+    </script>
+  
   <meta content="" name="description">
   <meta content="" name="keywords">
 
