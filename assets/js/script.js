@@ -1,8 +1,8 @@
 function button_1_click() {
   audio.play();
   var div = document.getElementById("black-screen");
-  div.style.display = "block";
-  deleting()
+  div.style.display = "none";
+  deleting();
 }
 
 function deleting() {
