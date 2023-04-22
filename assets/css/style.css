@@ -42,7 +42,7 @@ html, body {
   background-color: #fff;
   box-shadow: 0 0 5px 1px #000;
   position: absolute;
-  z-index: 99999;
+  z-index: 9999999999999999999999999999;
   pointer-events: none;
 }
 
