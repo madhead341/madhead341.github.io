@@ -14,6 +14,32 @@
   font-family: Arial, sans-serif;
 }
 
+#black-screen:hover {
+  color: red;
+  transition: 1.5s;
+  transform: scale(1.5);
+  cursor: url("data:image/svg+xml,%3Csvg height='6' width='6' viewBox='0 0 8 8' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='4' cy='4' fill='%23eee' r='4'/%3E%3C/svg%3E")
+      3 3,
+    auto;
+  transition: 0.5s ease-out;
+}
+
+button#black-screen:hover {
+  animation-name: shake;
+  animation-duration: 0.8s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  text-shadow: 0px 0px 20px red;
+  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+  cursor: url("data:image/svg+xml,%3Csvg height='6' width='6' viewBox='0 0 8 8' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='4' cy='4' fill='%23eee' r='4'/%3E%3C/svg%3E")
+      3 3,
+    auto;
+  transition: 0.5s ease-out;
+}
+
 #audio-player {
   display: none;
 }
