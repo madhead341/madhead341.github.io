@@ -7,6 +7,16 @@ var customCursor = document.createElement("div");
 customCursor.classList.add("custom-cursor");
 document.body.appendChild(customCursor);
 
+document.addEventListener("mousemove", function(event) {
+  customCursor.style.left = event.clientX + "px";
+  customCursor.style.top = event.clientY + "px";
+});
+
+document.addEventListener("scroll", function(event) {
+  customCursor.style.left = event.clientX + "px";
+  customCursor.style.top = event.clientY + "px";
+});
+
 var songs = [
   "Cant Trust - Keef Chief.mp3",
   "Control - Ab-Soul.mp3",
@@ -28,33 +38,12 @@ var songs = [
   "Still Ballin' (Remix) - 2Pac.mp3",
   "True Religion Fein - Chief Keef.mp3",
   "Walk - Comethanize.mp3",
-  "Wesley's Theory - Kendrick Lamar.mp3"
+  "Wesley's Theory - Kendrick Lamar.mp3",
 ];
 
-var path = "assets/music/";
-var currentSongIndex = Math.floor(Math.random() * songs.length);
-var audio = new Audio(path + songs[currentSongIndex]);
-audio.loop = false;
+var random_song = songs[Math.floor(Math.random() * songs.length)];
+var path = "/assets/music/" + random_song;
+var audio = new Audio(path);
+audio.loop = true;
 audio.preload = "auto";
-
 changeTitle();
-
-audio.addEventListener("ended", function() {
-  currentSongIndex = (currentSongIndex + 1) % songs.length;
-  audio.src = path + songs[currentSongIndex];
-  audio.play();
-  changeTitle();
-});
-
-function changeTitle() {
-  var songName = songs[currentSongIndex].replace(".mp3", "");
-  document.title = songName + " - My Music Player";
-}
-
-document.addEventListener("mousemove", function(event) {
-  customCursor.style.left = event.clientX + "px";
-  customCursor.style.top = event.clientY + "px";
-});
-
-siteWrapper.style.filter = "none";
-loadingScreen.style.display = "none";
