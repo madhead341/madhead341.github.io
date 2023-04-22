@@ -1,4 +1,4 @@
-const musicFiles = [
+const songs = [
   "assets/music/Cant Trust - Keef Chief.mp3",
   "assets/music/Control - Ab-Soul.mp3",
   "assets/music/DNA - Kendrick Lamar.mp3",
@@ -23,21 +23,30 @@ const musicFiles = [
 ];
 
 
-let randomFile = musicFiles[Math.floor(Math.random() * musicFiles.length)];
+// Get a random song from the array
+var randomIndex = Math.floor(Math.random() * songs.length);
+var randomSong = songs[randomIndex];
 
-const audioPlayer = document.getElementById("audio-player");
+// Create a new audio element and set its source to the random song
+var audio = document.getElementById('audio');
+audio.src = randomSong;
 
-audioPlayer.src = randomFile;
-
-audioPlayer.oncanplay = function() {
-  audioPlayer.play();
+// Play the audio when it's loaded and loop it
+audio.oncanplay = function() {
+  audio.play();
+  audio.loop = true;
 };
 
-audioPlayer.onended = function() {
-  randomFile = musicFiles[Math.floor(Math.random() * musicFiles.length)];
-  audioPlayer.src = randomFile;
-
-  audioPlayer.oncanplay = function() {
-    audioPlayer.play();
+// Play the next song when the current one ends
+audio.onended = function() {
+  // Get a new random song from the array
+  var newIndex = Math.floor(Math.random() * songs.length);
+  var newSong = songs[newIndex];
+  // Set the source of the audio element to the new song
+  audio.src = newSong;
+  // Play the audio when it's loaded and loop it
+  audio.oncanplay = function() {
+    audio.play();
+    audio.loop = true;
   };
 };
