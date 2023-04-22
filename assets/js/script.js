@@ -24,6 +24,10 @@ function button_1_click() {
 function deleting() {
   var button = document.getElementById("button_1");
   button.style.display = "none";
+  var div = document.getElementById("black-screen");
+  div.style.display = "none";
+}
+
     
     var songs = [
       "assets/music/Cant Trust - Keef Chief.mp3",
