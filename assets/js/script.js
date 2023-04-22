@@ -50,4 +50,10 @@ var path = "/static/assets/music/" + random_song;
 var audio = new Audio(path);
 audio.loop = true;
 audio.preload = "auto";
-changeTitle();
+audio.addEventListener("canplaythrough", function() {
+  siteWrapper.style.filter = "";
+  loadingScreen.style.display = "none";
+  audio.play();
+  changeTitle();
+});
+
