@@ -14,11 +14,16 @@ document.addEventListener("scroll", function() {
   customCursor.style.top = event.clientY + scrollY + "px";
 });
 
-window.onload = function() {
-  var blackScreen = document.getElementById("black-screen");
-  
-  blackScreen.addEventListener("click", function() {
-    blackScreen.style.display = "none";
+function button_1_click() {
+  audio.play();
+  var div = document.getElementById("SITE");
+  div.style.display = "block";
+  deleting()
+}
+
+function deleting() {
+  var button = document.getElementById("button_1");
+  button.style.display = "none";
     
     var songs = [
       "assets/music/Cant Trust - Keef Chief.mp3",
