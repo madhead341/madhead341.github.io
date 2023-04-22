@@ -16,10 +16,10 @@ document.addEventListener("mousemove", function(event) {
 });
 
 
-document.addEventListener("click", function() {
-  siteWrapper.style.filter = "blur(0)";
-  loadingScreen.style.display = "none";
+document.querySelector('.loading-screen').addEventListener('click', function() {
+  document.querySelector('.loading-screen').style.display = 'none';
 });
+
 
 const songs = [
   "assets/music/Cant Trust - Keef Chief.mp3",
