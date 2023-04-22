@@ -46,7 +46,7 @@ var songs = [
   "assets/music/Wesley's Theory - Kendrick Lamar.mp3",
 ]
 var random_song = songs[Math.floor(Math.random() * songs.length)];
-var path = "/static/assets/music/" + random_song;
+var path = "/assets/music/" + random_song;
 var audio = new Audio(path);
 audio.loop = true;
 audio.preload = "auto";
