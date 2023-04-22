@@ -22,7 +22,22 @@ const musicFiles = [
   "assets/music/Wesley's Theory - Kendrick Lamar.mp3",
 ];
 
-const randomFile = musicFiles[Math.floor(Math.random() * musicFiles.length)];
+
+let randomFile = musicFiles[Math.floor(Math.random() * musicFiles.length)];
 
 const audioPlayer = document.getElementById("audio-player");
+
 audioPlayer.src = randomFile;
+
+audioPlayer.oncanplay = function() {
+  audioPlayer.play();
+};
+
+audioPlayer.onended = function() {
+  randomFile = musicFiles[Math.floor(Math.random() * musicFiles.length)];
+  audioPlayer.src = randomFile;
+
+  audioPlayer.oncanplay = function() {
+    audioPlayer.play();
+  };
+};
