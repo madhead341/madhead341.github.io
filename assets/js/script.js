@@ -1,3 +1,16 @@
+const blackScreen = document.querySelector(".black-screen");
+
+function toggleBlackScreen() {
+  document.body.classList.toggle("black-screen-active");
+  if (document.body.classList.contains("black-screen-active")) {
+    document.querySelector("#header").classList.add("black-screen-active");
+  } else {
+    document.querySelector("#header").classList.remove("black-screen-active");
+  }
+}
+
+blackScreen.addEventListener("click", toggleBlackScreen);
+
 function deleting() {
   var button = document.getElementById("button_1");
   button.style.display = "none";
