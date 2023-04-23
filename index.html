@@ -1,187 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
-
-  <link href="assets/img/favicon.gif" rel="icon">
-  <link href="assets/img/apple-touch-icon.gif" rel="apple-touch-icon">
-  
+<body>
   <div id="black-screen-active">
     <button class="Enter" onclick="button_1_click()" id="button_1">Click to Enter</button>
-    <div class="ACTUAL_SITE" id="SITE">
-</div>
-
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-
-  <title>Best Python Developer</title>
-  <link href="assets/img/favicon.gif" rel="icon">
-  <link href="assets/img/apple-touch-icon.gif" rel="apple-touch-icon">
-  <link rel="stylesheet" href="assets/css/style.css" />
-  <script src="assets/js/script.js"></script>
-    <style>
-      .custom-cursor {
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 1;
-        pointer-events: none;
-        width: 1px;
-        height: 1px;
-        border-radius: 50%;
-        background-color: #FFFFFF;
-        mix-blend-mode: difference;
-        transition: transform 0.1s ease-out;
-        transform: translate(-50%, -50%);
-      }
-    </style>
-  <script>
-      function changeTitle() {
-        const titles = ["LO$R", "Best Python Developer", "Have Fun", "Let There Be Light.", "God Is Good"];
-        const randomIndex = Math.floor(Math.random() * titles.length);
-        const randomTitle = titles[randomIndex];
-        document.title = randomTitle;
-        setTimeout(changeTitle, 3000);
-      }
-
-      changeTitle();
-    </script>
-  
-  <div class="custom-cursor"></div>
-
-    <script>
-      let mouseCursor = document.querySelector(".custom-cursor");
-      let body = document.querySelector("html");
-
-      body.style.cursor =
-        "url('data:image/svg+xml,%3Csvg height='6' width='6' viewBox='0 0 8 8' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='4' cy='4' fill='%23eee' r='4'/%3E%3C/svg%3E') 3 3, auto";
-
-      document.addEventListener("mousemove", (e) => {
-        mouseCursor.style.left = e.clientX + "px";
-        mouseCursor.style.top = e.clientY + "px";
-      });
-    </script>
-  
-  <script>
-  const songs = [
-    "assets/music/Cant Trust - Keef Chief.mp3",
-    "assets/music/Control - Ab-Soul.mp3",
-    "assets/music/DNA - Kendrick Lamar.mp3",
-    "assets/music/Everyday - Chief Keef.mp3",
-    "assets/music/Geeked (Bass Boosted) - CHII WVTTZ + Set Da Trend + C Blu + Dougie B.mp3",
-    "assets/music/Get Out - Comethazine.mp3",
-    "assets/music/Go Stupid - Polo G.mp3",
-    "assets/music/I Don't Like - Chief Keef.mp3",
-    "assets/music/In Control - Youngboy Never Broke Again.mp3",
-    "assets/music/Love Sosa - Chief Keef.mp3",
-    "assets/music/M.A.A.D. City - Kendrick Lamar.mp3",
-    "assets/music/Make No Sense - Youngboy Never Broke Again.mp3",
-    "assets/music/Monster - Kanye West.mp3",
-    "assets/music/Only You Freestyle - Headie One.mp3",
-    "assets/music/Sawarim - idk the author.mp3",
-    "assets/music/Sosa - Chief Keef.mp3",
-    "assets/music/Spinback - Comethazine.mp3",
-    "assets/music/Still Ballin' (Remix) - 2Pac.mp3",
-    "assets/music/True Religion Fein - Chief Keef.mp3",
-    "assets/music/Walk - Comethanize.mp3",
-    "assets/music/Wesley's Theory - Kendrick Lamar.mp3",
-  ];
-
-  const shuffledSongs = shuffleArray(songs);
-
-  let currentSongIndex = 0;
-
-  function playNextSong() {
-    const currentSong = shuffledSongs[currentSongIndex];
-    const audio = new Audio(currentSong);
-    audio.addEventListener("ended", function () {
-      currentSongIndex = (currentSongIndex + 1) % shuffledSongs.length;
-      playNextSong();
-    });
-    audio.play();
-  }
-
-  playNextSong();
-
-  function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  }
-</script>
-  
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
-
-</head>
-
-<body>
-
-  <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top">
-    <div class="container d-flex align-items-center justify-content-between">
-
-      <h1 class="logo"><a href="index.html">LO$R</a></h1>
-      <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
-
-      <nav id="navbar" class="navbar">
-        <ul>
-          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-          <li><a class="nav-link scrollto" href="#about">About</a></li>
-          <li><a class="nav-link scrollto" href="#services">Services</a></li>
-          <li><a href="https://github.com/madhead341/">Github</a></li>
-    </div>
-    <main>
-        <div class="music-player">
-          <audio id="audio-player" preload="auto" loop></audio>
-        </div>
-      </main>
-    </div>
-    <div class="custom-cursor"></div>
-    <script src="script.js"></script>
-  </body>
-  </header><!-- End Header -->
-
-  <!-- ======= Hero Section ======= -->
-  <div id="hero" class="hero route bg-image" style="background-image: url(assets/img/hero-bg.gif)">
-    <div class="overlay-itro"></div>
-    <div class="hero-content display-table">
-      <div class="table-cell">
-        <div class="container">
-          <!--<p class="display-6 color-d">Best Python Developer</p>-->
-          <h1 class="hero-title mb-4">I am LO$R#0001</h1>
-          <p class="hero-subtitle"><span class="typed" data-typed-items="Designer, Developer, Student"></span></p>
-          <!-- <p class="pt-3"><a class="btn btn-primary btn js-scroll px-4" href="#about" role="button">Learn More</a></p> -->
-        </div>
-      </div>
-    </div>
-  </div><!-- End Hero Section -->
-
-  <main id="main">
-
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/typed.js/typed.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
-
+  </div>
+  <div class="ACTUAL_SITE" id="SITE">
+  </div>
 </body>
+    <head>
+      <meta charset="utf-8">
+      <meta content="width=device-width, initial-scale=1.0" name="viewport">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+      <title>Best Python Developer</title>
+      <link href="assets/img/favicon.gif" rel="icon">
+      <link href="assets/img/apple-touch-icon.gif" rel="apple-touch-icon">
+      <link rel="stylesheet" href="assets/css/style.css" />
+      <script src="assets/js/script.js"></script>
+      <style>
+        .custom-cursor {
+          position: fixed;
+          top: 0;
+          left: 0;
+          z-index: 1;
+          pointer-events: none;
+          width: 1px;
+          height: 1px;
+          border-radius: 50%;
+          background-color: #FFFFFF;
+          mix-blend-mode: difference;
+          transition: transform 0.1s ease-out;
+          transform: translate(-50%, -50%);
+        }
+      </style>
+      <script>
+        function changeTitle() {
+          const titles = ["LO$R", "Best Python Developer", "Have Fun", "Let There Be Light.", "God Is Good"];
+          const randomIndex = Math.floor(Math.random() * titles.length);
+          const randomTitle = titles[randomIndex];
+          document.title = randomTitle;
+          setTimeout(changeTitle, 3000);
+        }
+
+        changeTitle();
+      </script>
+      <div class="custom-cursor"></div>
+      <script>
+        let mouseCursor = document.querySelector(".custom-cursor");
+        let body = document.querySelector("html");
+
+        body.style.cursor =
+          "url('data:image/svg+xml,%3Csvg height='6' width='6' viewBox='0 0 8 8' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='4' cy='4' fill='%23eee' r='4'/%3E%3C/svg%3E') 3 3, auto";
+
+        document.addEventListener("mousemove", (e) => {
+          mouseCursor.style.left = e.clientX + "px";
+          mouseCursor.style.top = e.clientY + "px";
+        });
+      </script>
+
+      <script>
+      const songs = [
+        "assets/music/Cant Trust - Keef Chief.mp3",
+        "assets/music/Control - Ab-Soul.mp3",
+        "assets/music/DNA - Kendrick Lamar.mp3",
+        "assets/music/Everyday - Chief Keef.mp3",
+        "assets/music/Geeked (Bass Boosted) - CHII WVTTZ + Set Da Trend + C Blu + Dougie B.mp3",
+        "assets/music/Get Out - Comethazine.mp3",
+        "assets/music/Go Stupid - Polo G.mp3",
+        "assets/music/I Don't Like - Chief Keef.mp3",
+        "assets/music/In Control - Youngboy Never Broke Again.mp3",
+        "assets/music/Love Sosa - Chief Keef.mp3",
+        "assets/music/M.A.A.D. City - Kendrick Lamar.mp3",
+        "assets/music/Make No Sense - Youngboy Never Broke Again.mp3",
+        "assets/music/Monster - Kanye West.mp3",
+        "assets/music/Only You Freestyle - Headie One.mp3",
+        "assets/music/Sawarim - idk the author.mp3",
+        "assets/music/Sosa - Chief Keef.mp3",
+        "assets/music/Spinback - Comethazine.mp3",
+        "assets/music/Still Ballin' (Remix) - 2Pac.mp3",
+        "assets/music/True Religion Fein - Chief Keef.mp3",
+        "assets/music/Walk - Comethanize.mp3",
+        "assets/music/Wesley's Theory - Kendrick Lamar.mp3",
+      ];
+
+      const shuffledSongs = shuffleArray(songs);
+
+      let currentSongIndex = 0;
+
+      function playNextSong() {
+        const currentSong = shuffledSongs[currentSongIndex];
+        const audio = new Audio(currentSong);
+        audio.addEventListener("ended", function () {
+          currentSongIndex = (currentSongIndex + 1) % shuffledSongs.length;
+          playNextSong();
+        });
+        audio.play();
+      }
+
+      playNextSong();
+
+      function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+      }
+    </script>
+
+      <meta content="" name="description">
+      <meta content="" name="keywords">
+
+      <!-- Vendor CSS Files -->
+      <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+      <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+      <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+      <!-- Template Main CSS File -->
+      <link href="assets/css/style.css" rel="stylesheet">
+
+    </head>
+
+    <body>
+
+      <!-- ======= Header ======= -->
+      <header id="header" class="fixed-top">
+        <div class="container d-flex align-items-center justify-content-between">
+
+          <h1 class="logo"><a href="index.html">LO$R</a></h1>
+
+          <nav id="navbar" class="navbar">
+            <ul>
+              <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+              <li><a class="nav-link scrollto" href="#about">About</a></li>
+              <li><a class="nav-link scrollto" href="#services">Services</a></li>
+              <li><a href="https://github.com/madhead341/">Github</a></li>
+        </div>
+        <main>
+            <div class="music-player">
+              <audio id="audio-player" preload="auto" loop></audio>
+            </div>
+          </main>
+        </div>
+        <div class="custom-cursor"></div>
+        <script src="script.js"></script>
+      </body>
+      </header><!-- End Header -->
+
+      <!-- ======= Hero Section ======= -->
+      <div id="hero" class="hero route bg-image" style="background-image: url(assets/img/hero-bg.gif)">
+        <div class="overlay-itro"></div>
+        <div class="hero-content display-table">
+          <div class="table-cell">
+            <div class="container">
+              <!--<p class="display-6 color-d">Best Python Developer</p>-->
+              <h1 class="hero-title mb-4">I am LO$R#0001</h1>
+              <p class="hero-subtitle"><span class="typed" data-typed-items="Designer, Developer, Student"></span></p>
+            </div>
+          </div>
+        </div>
+      </div><!-- End Hero Section -->
+
+      <main id="main">
+
+      <!-- Vendor JS Files -->
+      <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+      <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+      <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+      <script src="assets/vendor/typed.js/typed.min.js"></script>
+      <script src="assets/vendor/php-email-form/validate.js"></script>
+
+      <!-- Template Main JS File -->
+      <script src="assets/js/main.js"></script>
+
+    </body>
 
 </html>
