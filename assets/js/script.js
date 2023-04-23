@@ -1,32 +1,41 @@
 const blackScreen = document.querySelector(".black-screen");
 
 function toggleBlackScreen() {
-  document.body.classList.toggle("black-screen-active");
-  if (document.body.classList.contains("black-screen-active")) {
-    document.querySelector("#header").classList.add("black-screen-active");
+  document.body.classList.toggle("black-screen");
+  if (document.body.classList.contains("black-screen")) {
+    document.querySelector("#header").classList.add("black-screen");
   } else {
-    document.querySelector("#header").classList.remove("black-screen-active");
+    document.querySelector("#header").classList.remove("black-screen");
   }
 }
 
-blackScreen.addEventListener("click", toggleBlackScreen);
+if (blackScreen) {
+  blackScreen.addEventListener("click", toggleBlackScreen);
+}
 
 function deleting() {
   var button = document.getElementById("button_1");
-  button.style.display = "none";
+  if (button) {
+    button.style.display = "none";
+  }
   var div = document.getElementById("black-screen");
-  div.style.display = "none";
+  if (div) {
+    div.style.display = "none";
+  }
 }
 
 var button = document.getElementById("button_1");
 
-button.addEventListener("click", function() {
-  audio.play();
-  var div = document.getElementById("black-screen");
-  div.style.display = "none";
-  deleting();
-});
-
+if (button) {
+  button.addEventListener("click", function() {
+    audio.play();
+    var div = document.getElementById("black-screen");
+    if (div) {
+      div.style.display = "none";
+    }
+    deleting();
+  });
+}
 
 var customCursor = document.createElement("div");
 customCursor.classList.add("custom-cursor");
@@ -40,8 +49,8 @@ document.addEventListener("mousemove", function(event) {
 document.addEventListener("scroll", function() {
   var scrollX = window.scrollX || window.pageXOffset;
   var scrollY = window.scrollY || window.pageYOffset;
-  customCursor.style.left = event.clientX + scrollX + "px";
-  customCursor.style.top = event.clientY + scrollY + "px";
+  customCursor.style.left = scrollX + event.clientX + "px";
+  customCursor.style.top = scrollY + event.clientY + "px";
 });
 
     
@@ -86,8 +95,6 @@ document.addEventListener("scroll", function() {
     
     audio.addEventListener("ended", playNextSong);
     playNextSong();
-  });
-};
 
 window.addEventListener("load", function() {
   audio.play();
