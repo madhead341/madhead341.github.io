@@ -648,9 +648,12 @@ a:hover {
 # Header
 --------------------------------------------------------------*/
 #header {
-  transition: all 0.5s;
-  z-index: 997;
-  padding: 20px 0;
+  transition: all 0.5s ease;
+}
+
+.black-screen-active #header {
+  visibility: hidden;
+  opacity: 0;
 }
 
 #header .logo {
