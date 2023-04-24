@@ -90,8 +90,17 @@ document.addEventListener("scroll", function() {
       currentSongIndex = nextSongIndex;
       var nextSong = songs[currentSongIndex];
       audio.src = nextSong;
-      audio.play();
-    }
+    
+      var nowPlayingTitle = document.querySelector(".now-playing-title");
+      if (nowPlayingTitle) {
+        nowPlayingTitle.innerHTML = "Now Playing: " + (currentSongIndex + 1) + ":";
+      }
+    
+      var nowPlayingSong = document.querySelector(".now-playing-song");
+      if (nowPlayingSong) {
+        nowPlayingSong.innerHTML = songs[currentSongIndex];
+      }
+    }        
     
     audio.addEventListener("ended", playNextSong);
     playNextSong();
