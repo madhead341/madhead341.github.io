@@ -979,17 +979,21 @@ a:hover {
 
 .now-playing {
   margin-top: 3em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
   text-align: center;
   font-family: 'Fira Code', monospace;
 }
 
 .now-playing-title {
   font-family: var(--font-fira-code);
-  margin-top: 33em;
+  margin-top: 31em;
   color: #fff;
   font-size: 1.2rem;
 }
-
 
 .now-playing-song {
   font-size: 1.2rem;
@@ -1195,7 +1199,9 @@ a:hover {
   border: 0px solid #cde1f8;
   display: block;
   transition: all 0.6s ease-in-out;
-  cursor: pointer;
+  cursor: url("data:image/svg+xml,%3Csvg height='6' width='6' viewBox='0 0 8 8' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='4' cy='4' fill='%23eee' r='4'/%3E%3C/svg%3E")
+      3 3,
+    auto;
 }
 
 .owl-theme .owl-dots .owl-dot:hover span {
@@ -1228,7 +1234,9 @@ a:hover {
   left: auto;
   right: 30px;
   bottom: 50px;
-  cursor: pointer;
+  cursor: url("data:image/svg+xml,%3Csvg height='6' width='6' viewBox='0 0 8 8' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='4' cy='4' fill='%23eee' r='4'/%3E%3C/svg%3E")
+      3 3,
+    auto;
   border-radius: 50%;
 }
 
@@ -1242,11 +1250,14 @@ a:hover {
   right: 15px;
   bottom: 15px;
   z-index: 996;
-  background: #0078ff;
+  background: #000000;
   width: 40px;
   height: 40px;
   border-radius: 50px;
   transition: all 0.4s;
+  cursor: url("data:image/svg+xml,%3Csvg height='6' width='6' viewBox='0 0 8 8' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='4' cy='4' fill='%23eee' r='4'/%3E%3C/svg%3E")
+      3 3,
+    auto;
 }
 
 .back-to-top i {
@@ -1256,8 +1267,11 @@ a:hover {
 }
 
 .back-to-top:hover {
-  background: #298eff;
+  background: #313131;
   color: #fff;
+  cursor: url("data:image/svg+xml,%3Csvg height='6' width='6' viewBox='0 0 8 8' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='4' cy='4' fill='%23eee' r='4'/%3E%3C/svg%3E")
+      3 3,
+    auto;
 }
 
 .back-to-top.active {
@@ -1742,6 +1756,9 @@ a:hover {
 .hero .hero-content {
   text-align: center;
   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .hero .overlay-itro {
