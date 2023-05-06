@@ -12,7 +12,8 @@ My github.io page
 - The Webcam & Screensharing example:
 ``` 
 [https://madhead341.github.io/sites/RealTimeViewer.html/](https://madhead341.github.io/sites/RealTimeViewer.html)
-```diff- The Discord Embed Visualizer: 
+```diff
+- The Discord Embed Visualizer: 
 (BROKEN)
 
 - More Coming Soon!
