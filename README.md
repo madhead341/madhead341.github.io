@@ -5,9 +5,10 @@ My github.io page
 
 ## Site parts:
 ```diff
-- The Main Page: ([https://madhead341.github.io/](https://madhead341.github.io/))
-- The Webcam & Screensharing example: ([https://madhead341.github.io/sites/RealTimeViewer.html/](https://madhead341.github.io/sites/RealTimeViewer.html))
-- The Discord Embed Visualizer: (BROKEN)
+- The Main Page:``` ([https://madhead341.github.io/](https://madhead341.github.io/))
+```diff
+- The Webcam & Screensharing example:``` ([https://madhead341.github.io/sites/RealTimeViewer.html/](https://madhead341.github.io/sites/RealTimeViewer.html))
+```diff- The Discord Embed Visualizer: (BROKEN)
 
 - More Coming Soon!
 ```
