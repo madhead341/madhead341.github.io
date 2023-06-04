@@ -1,4 +1,33 @@
- /* customizable snowflake styling */
+/****** image hover ******/
+
+.image-hover * {-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
+.image-hover {position:relative;width:450px;height:200px;display:inline-block;overflow:hidden;background:#fff;border:10px solid #fff;
+box-shadow:0px 2px 3px rgba(0, 0, 0, 0.3);-moz-box-shadow:0px 2px 3px rgba(0, 0, 0, 0.3);-webkit-box-shadow:0px 2px 3px rgba(0, 0, 0, 0.3)}
+.image-hover a {text-decoration:none}
+
+.image-hover img {margin:-100px 0px 0px -100px}
+
+/*** effect zoom in ***/
+
+.img-zoom-in img 
+{
+transition:all .2s ease-in-out;
+-webkit-transition:all .2s ease-in-out;
+-moz-transition:all .2s ease-in-out;
+-ms-transition:all .2s ease-in-out;
+-o-transition:all .2s ease-in-out;
+}
+
+.img-zoom-in:hover img 
+{
+transform:scale(1.1);
+-webkit-transform:scale(1.1);
+-moz-transform:scale(1.1);
+-ms-transform:scale(1.1);
+-o-transform:scale(1.1)
+}
+
+/* customizable snowflake styling */
   .snowflake {
     color: #fff;
     font-size: 1em;
