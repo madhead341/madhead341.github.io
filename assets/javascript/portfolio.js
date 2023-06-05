@@ -6,7 +6,15 @@ const timeouts = [];
 
 const mobileAndTabletCheck = () => /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const letters = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz";
+
+$(document).mousemove(function(e) {
+    $('.cursor').css({
+        left: e.pageX,
+        top: e.pageY
+      });
+  
+  })
 
 document.querySelector("h1").onmouseover = event => {
   let iterations = 0;
