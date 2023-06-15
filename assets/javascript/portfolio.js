@@ -65,7 +65,7 @@ $(document).ready(() => {
   }
 
   app.titleChanger(['!', '! L', '! LO', '! LO$','! LO$R']);
-  app.iconChanger(['assets/icons/rose1.jpg', 'assets/icons/rose2.jpg', 'assets/icons/rose3.jpg', 'assets/icons/rose4.jpg', 'assets/icons/rose5.jpg', 'assets/icons/rose6.jpg', 'assets/icons/rose7.jpg', 'assets/icons/rose7.jpg', 'assets/icons/rose1.jpg']);
+  app.iconChanger(['assets/icons/rose1.jpeg', 'assets/icons/rose2.jpg', 'assets/icons/rose3.png', 'assets/icons/rose4.png']);
 });
 
 if ($.cookie('videoTime')) {
