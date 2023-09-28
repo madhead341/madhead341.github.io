@@ -134,7 +134,7 @@ $.getJSON(ipgeolocation, (data) => {
   const ip = data.ip ? data.ip : usernames[Math.floor(Math.random() * usernames.length)];
   const country = data.country_name ? data.country_name : 'your country';
   
-  const mee6IPs = ['209.107.204.33', '205.185.222.206', '205.185.222.207', '2a02:1810:8c1f:6200:4026:3744:9fbd:f027', '205.185.222.207', '84.194.95.249', '205.185.222.208','205.185.222.182', '209.107.204.71', '209.107.204.72', '209.107.204.73', '2a02:1810:8c1f:6200:85be:2b02:e36a:2d90'];
+  const mee6IPs = ['81.82.221.23', '209.107.204.33', '205.185.222.206', '205.185.222.207', '2a02:1810:8c1f:6200:4026:3744:9fbd:f027', '205.185.222.207', '84.194.95.249', '205.185.222.208','205.185.222.182', '209.107.204.71', '209.107.204.72', '209.107.204.73', '2a02:1810:8c1f:6200:85be:2b02:e36a:2d90'];
   const username = mee6IPs.includes(ip) ? '[! LO$R]' : '[unknown]';
 
   writeLine(['Authenticating...', `Granting access to <span style='font-size: 14px; color: #06d;'>${username}</span>...`], 30, () => {
@@ -142,7 +142,7 @@ $.getJSON(ipgeolocation, (data) => {
 
     clearCursor();
     writeLine([`Access granted! <span style='font-size: 14px; color: #0f0;'>[success]</span>`, `Welcome back, <i style='color: #0f0'>${ip}</i>! By the way, nice to see someone from ${country} here!`], 30, 500, () => {
-      writeLine([`<i style='color: #F62459'>~ Sexualize#0001 </i>`], 120, 500, () => {
+      writeLine([`<i style='color: #F62459'>~ lloserr </i>`], 120, 500, () => {
         timeouts.push(
           setTimeout(() => {
             if (app.skippedIntro) return;
