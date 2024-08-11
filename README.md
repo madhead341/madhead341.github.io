@@ -9,4 +9,4 @@ My github.io page
 ``` 
 [https://madhead341.github.io/](https://madhead341.github.io/index.html)
 
-[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/losr/)
+```[https։/̸youtube.com/watch?v=dQw4w9WgXcQ](https://losr.is-a.dev/assets/index.html)```
