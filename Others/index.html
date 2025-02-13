@@ -67,14 +67,6 @@
                 window.location.href = `fake_error.html?domain=${encodeURIComponent(input)}`;
             }
         }
-        
-        document.addEventListener("DOMContentLoaded", function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const domain = urlParams.get('domain') || getDomainFromURL();
-            if (domain) {
-                document.getElementById('domainInput').value = domain;
-            }
-        });
     </script>
 </body>
 </html>
