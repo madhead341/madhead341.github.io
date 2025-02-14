@@ -868,7 +868,7 @@ strong {
           <div>
             Visit <a href="https://www.cloudflare.com/5xx-error-landing/" target="_blank" rel="noopener noreferrer">cloudflare.com</a> for more information.
           </div>
-          <div class="mt-3">2025-01-02 01:33:38 UTC</div>
+          <div class="mt-3" id="current-time">2025-01-02 01:33:38 UTC</div>
         </header>
         <div class="my-8 bg-gradient-gray">
           <div class="w-240 lg:w-full mx-auto">
@@ -949,12 +949,11 @@ strong {
         return rayId;
       }
   
-      // Function to get the user's city based on their IP address using ipdata.co
       function getUserCity() {
         return fetch('https://api.ipdata.co/?api-key=d75ad8557d1eb86f55d816c62987104cc8e1fe9b219dd85857875a44')
           .then(response => response.json())
           .then(data => data.city)
-          .catch(() => 'Unable to fetch.'); // Fallback if the API fails
+          .catch(() => 'Brussels'); // Fallback to Brussels if the API fails
       }
   
       function updateCity(city) {
@@ -964,7 +963,6 @@ strong {
         }
       }
   
-      // Function to replace {custom} with the domain value
       function replaceCustomText(domain) {
         const elements = document.querySelectorAll('*');
         elements.forEach(element => {
@@ -978,34 +976,41 @@ strong {
         });
       }
   
-      // Check if ?domain=xxx.xxx is in the URL
+      function getCurrentUTCTime() {
+        const now = new Date();
+        const year = now.getUTCFullYear();
+        const month = String(now.getUTCMonth() + 1).padStart(2, '0');
+        const day = String(now.getUTCDate()).padStart(2, '0');
+        const hours = String(now.getUTCHours()).padStart(2, '0');
+        const minutes = String(now.getUTCMinutes()).padStart(2, '0');
+        const seconds = String(now.getUTCSeconds()).padStart(2, '0');
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds} UTC`;
+      }
+  
+      document.getElementById('current-time').textContent = getCurrentUTCTime();
+  
       const urlParams = new URLSearchParams(window.location.search);
       const domain = urlParams.get('domain');
       if (domain) {
         replaceCustomText(domain);
       }
   
-      // Update the Ray ID in the HTML
       document.getElementById('cf-ray-id').textContent = generateRayId();
   
-      // Fetch and display the user's city on page load
       getUserCity().then(city => updateCity(city));
   
-      // Fetch and display the IP address when the button is clicked
       document.getElementById('cf-footer-ip-reveal').addEventListener('click', function() {
         fetch('https://api.ipify.org?format=json')
           .then(response => response.json())
           .then(data => {
             document.getElementById('cf-footer-ip').textContent = data.ip;
             document.getElementById('cf-footer-ip').classList.remove('hidden');
-            // Hide the "Click to reveal" button
             document.getElementById('cf-footer-ip-reveal').style.display = 'none';
           })
           .catch(error => {
             console.error('Error fetching IP address:', error);
             document.getElementById('cf-footer-ip').textContent = 'Error fetching IP';
             document.getElementById('cf-footer-ip').classList.remove('hidden');
-            // Hide the "Click to reveal" button even if there's an error
             document.getElementById('cf-footer-ip-reveal').style.display = 'none';
           });
       });
