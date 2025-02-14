@@ -1,1 +1,364 @@
-// hhh
+<html class="no-js" lang="en-US"><script type="text/javascript">!function pageScript() {
+    let speedConfig = {
+      speed: 1.0,
+      cbSetIntervalChecked: true,
+      cbSetTimeoutChecked: true,
+      cbPerformanceNowChecked: true,
+      cbDateNowChecked: true,
+      cbRequestAnimationFrameChecked: false,
+    };
+  
+    const emptyFunction = () => {};
+  
+    const originalClearInterval = window.clearInterval;
+    const originalclearTimeout = window.clearTimeout;
+  
+    const originalSetInterval = window.setInterval;
+    const originalSetTimeout = window.setTimeout;
+  
+    const originalPerformanceNow = window.performance.now.bind(
+      window.performance
+    );
+  
+    const originalDateNow = Date.now;
+  
+    const originalRequestAnimationFrame = window.requestAnimationFrame;
+  
+    let timers = [];
+    const reloadTimers = () => {
+      console.log(timers);
+      const newtimers = [];
+      timers.forEach((timer) => {
+        originalClearInterval(timer.id);
+        if (timer.customTimerId) {
+          originalClearInterval(timer.customTimerId);
+        }
+        if (!timer.finished) {
+          const newTimerId = originalSetInterval(
+            timer.handler,
+            speedConfig.cbSetIntervalChecked
+              ? timer.timeout / speedConfig.speed
+              : timer.timeout,
+            ...timer.args
+          );
+          timer.customTimerId = newTimerId;
+          newtimers.push(timer);
+        }
+      });
+      timers = newtimers;
+    };
+  
+    window.addEventListener("message", (e) => {
+      if (e.data.command === "setSpeedConfig") {
+        speedConfig = e.data.config;
+        reloadTimers();
+      }
+    });
+  
+    window.postMessage({ command: "getSpeedConfig" });
+  
+    window.clearInterval = (id) => {
+      originalClearInterval(id);
+      timers.forEach((timer) => {
+        if (timer.id == id) {
+          timer.finished = true;
+          if (timer.customTimerId) {
+            originalClearInterval(timer.customTimerId);
+          }
+        }
+      });
+    };
+  
+    window.clearTimeout = (id) => {
+      originalclearTimeout(id);
+      timers.forEach((timer) => {
+        if (timer.id == id) {
+          timer.finished = true;
+          if (timer.customTimerId) {
+            originalclearTimeout(timer.customTimerId);
+          }
+        }
+      });
+    };
+  
+    window.setInterval = (handler, timeout, ...args) => {
+      console.log("timeout  ", timeout);
+      if (!timeout) timeout = 0;
+      const id = originalSetInterval(
+        handler,
+        speedConfig.cbSetIntervalChecked ? timeout / speedConfig.speed : timeout,
+        ...args
+      );
+      timers.push({
+        id: id,
+        handler: handler,
+        timeout: timeout,
+        args: args,
+        finished: false,
+        customTimerId: null,
+      });
+      return id;
+    };
+  
+    window.setTimeout = (handler, timeout, ...args) => {
+      if (!timeout) timeout = 0;
+      return originalSetTimeout(
+        handler,
+        speedConfig.cbSetTimeoutChecked ? timeout / speedConfig.speed : timeout,
+        ...args
+      );
+    };
+  
+    // performance.now
+    (function () {
+      let performanceNowValue = null;
+      let previusPerformanceNowValue = null;
+      window.performance.now = () => {
+        const originalValue = originalPerformanceNow();
+        if (performanceNowValue) {
+          performanceNowValue +=
+            (originalValue - previusPerformanceNowValue) *
+            (speedConfig.cbPerformanceNowChecked ? speedConfig.speed : 1);
+        } else {
+          performanceNowValue = originalValue;
+        }
+        previusPerformanceNowValue = originalValue;
+        return Math.floor(performanceNowValue);
+      };
+    })();
+  
+    // Date.now
+    (function () {
+      let dateNowValue = null;
+      let previusDateNowValue = null;
+      Date.now = () => {
+        const originalValue = originalDateNow();
+        if (dateNowValue) {
+          dateNowValue +=
+            (originalValue - previusDateNowValue) *
+            (speedConfig.cbDateNowChecked ? speedConfig.speed : 1);
+        } else {
+          dateNowValue = originalValue;
+        }
+        previusDateNowValue = originalValue;
+        return Math.floor(dateNowValue);
+      };
+    })();
+  
+    // requestAnimationFrame
+    (function () {
+      let dateNowValue = null;
+      let previusDateNowValue = null;
+      const callbackFunctions = [];
+      const callbackTick = [];
+      const newRequestAnimationFrame = (callback) => {
+        return originalRequestAnimationFrame((timestamp) => {
+          const originalValue = originalDateNow();
+          if (dateNowValue) {
+            dateNowValue +=
+              (originalValue - previusDateNowValue) *
+              (speedConfig.cbRequestAnimationFrameChecked
+                ? speedConfig.speed
+                : 1);
+          } else {
+            dateNowValue = originalValue;
+          }
+          previusDateNowValue = originalValue;
+  
+          const dateNowValue_MathFloor = Math.floor(dateNowValue);
+  
+          const index = callbackFunctions.indexOf(callback);
+          let tickFrame = null;
+          if (index == -1) {
+            callbackFunctions.push(callback);
+            callbackTick.push(0);
+            callback(dateNowValue_MathFloor);
+          } else if (speedConfig.cbRequestAnimationFrameChecked) {
+            tickFrame = callbackTick[index];
+            tickFrame += speedConfig.speed;
+  
+            if (tickFrame >= 1) {
+              while (tickFrame >= 1) {
+                callback(dateNowValue_MathFloor);
+                window.requestAnimationFrame = emptyFunction;
+                tickFrame -= 1;
+              }
+              window.requestAnimationFrame = newRequestAnimationFrame;
+            } else {
+              window.requestAnimationFrame(callback);
+            }
+            callbackTick[index] = tickFrame;
+          } else {
+            callback(dateNowValue_MathFloor);
+          }
+        });
+      };
+      window.requestAnimationFrame = newRequestAnimationFrame;
+    })();
+  }()
+  //# sourceURL=pageScript.js</script><!--<![endif]--><head>
+<html class="no-js" lang="en-US">
+  <head>
+    <title>{custom} | 521: Web server is down</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" id="cf_styles-css" href="/cdn-cgi/styles/main.css">
+  </head>
+  <body>
+    <div id="cf-wrapper">
+      <div id="cf-error-details" class="p-0">
+        <header class="mx-auto pt-10 lg:pt-6 lg:px-8 w-240 lg:w-full mb-8">
+          <h1 class="inline-block sm:block sm:mb-2 font-light text-60 lg:text-4xl text-black-dark leading-tight mr-2">
+            <span class="inline-block">Web server is down</span>
+            <span class="code-label">Error code 521</span>
+          </h1>
+          <div>
+            Visit <a href="https://www.cloudflare.com/5xx-error-landing/" target="_blank" rel="noopener noreferrer">cloudflare.com</a> for more information.
+          </div>
+          <div class="mt-3">2025-01-02 01:33:38 UTC</div>
+        </header>
+        <div class="my-8 bg-gradient-gray">
+          <div class="w-240 lg:w-full mx-auto">
+            <div class="clearfix md:px-8">
+              <div id="cf-browser-status" class="relative w-1/3 md:w-full py-15 md:p-0 md:py-8 md:text-left md:border-solid md:border-0 md:border-b md:border-gray-400 overflow-hidden float-left md:float-none text-center">
+                <div class="relative mb-10 md:m-0">
+                  <span class="cf-icon-browser block md:hidden h-20 bg-center bg-no-repeat"></span>
+                  <span class="cf-icon-ok w-12 h-12 absolute left-1/2 md:left-auto md:right-0 md:top-0 -ml-6 -bottom-4"></span>
+                </div>
+                <span class="md:block w-full truncate">You</span>
+                <h3 class="md:inline-block mt-3 md:mt-0 text-2xl text-gray-600 font-light leading-1.3">Browser</h3>
+                <span class="leading-1.3 text-2xl text-green-success">Working</span>
+              </div>
+              <div id="cf-cloudflare-status" class="relative w-1/3 md:w-full py-15 md:p-0 md:py-8 md:text-left md:border-solid md:border-0 md:border-b md:border-gray-400 overflow-hidden float-left md:float-none text-center">
+                <div class="relative mb-10 md:m-0">
+                  <a href="https://www.cloudflare.com/5xx-error-landing/" target="_blank" rel="noopener noreferrer">
+                    <span class="cf-icon-cloud block md:hidden h-20 bg-center bg-no-repeat"></span>
+                    <span class="cf-icon-ok w-12 h-12 absolute left-1/2 md:left-auto md:right-0 md:top-0 -ml-6 -bottom-4"></span>
+                  </a>
+                </div>
+                <span class="md:block w-full truncate" id="cf-cloudflare-city">Brussels</span>
+                <h3 class="md:inline-block mt-3 md:mt-0 text-2xl text-gray-600 font-light leading-1.3">
+                  <a href="https://www.cloudflare.com/5xx-error-landing/" target="_blank" rel="noopener noreferrer">Cloudflare</a>
+                </h3>
+                <span class="leading-1.3 text-2xl text-green-success">Working</span>
+              </div>
+              <div id="cf-host-status" class="cf-error-source relative w-1/3 md:w-full py-15 md:p-0 md:py-8 md:text-left md:border-solid md:border-0 md:border-b md:border-gray-400 overflow-hidden float-left md:float-none text-center">
+                <div class="relative mb-10 md:m-0">
+                  <span class="cf-icon-server block md:hidden h-20 bg-center bg-no-repeat"></span>
+                  <span class="cf-icon-error w-12 h-12 absolute left-1/2 md:left-auto md:right-0 md:top-0 -ml-6 -bottom-4"></span>
+                </div>
+                <span class="md:block w-full truncate" id="cf-host-name">{custom}</span>
+                <h3 class="md:inline-block mt-3 md:mt-0 text-2xl text-gray-600 font-light leading-1.3">Host</h3>
+                <span class="leading-1.3 text-2xl text-red-error">Error</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w-240 lg:w-full mx-auto mb-8 lg:px-8">
+          <div class="clearfix">
+            <div class="w-1/2 md:w-full float-left pr-6 md:pb-10 md:pr-0 leading-relaxed">
+              <h2 class="text-3xl font-normal leading-1.3 mb-4">What happened?</h2>
+              <p>The web server is not returning a connection. As a result, the web page is not displaying.</p>
+            </div>
+            <div class="w-1/2 md:w-full float-left leading-relaxed">
+              <h2 class="text-3xl font-normal leading-1.3 mb-4">What can I do?</h2>
+              <h3 class="text-15 font-semibold mb-2">If you are a visitor of this website:</h3>
+              <p class="mb-6">Please try again in a few minutes.</p>
+              <h3 class="text-15 font-semibold mb-2">If you are the owner of this website:</h3>
+              <p><span>Contact your hosting provider letting them know your web server is not responding.</span> <a rel="noopener noreferrer" href="https://support.cloudflare.com/hc/en-us/articles/200171916-Error-521">Additional troubleshooting information</a>.</p>
+            </div>
+          </div>
+        </div>
+        <div class="cf-error-footer cf-wrapper w-240 lg:w-full py-10 sm:py-4 sm:px-8 mx-auto text-center sm:text-left border-solid border-0 border-t border-gray-300">
+          <p class="text-13">
+            <span class="cf-footer-item sm:block sm:mb-1">Cloudflare Ray ID: <strong class="font-semibold" id="cf-ray-id"></strong></span>
+            <span class="cf-footer-separator sm:hidden">•</span>
+            <span id="cf-footer-item-ip" class="cf-footer-item sm:block sm:mb-1">
+              Your IP:
+              <button type="button" id="cf-footer-ip-reveal" class="cf-footer-ip-reveal-btn">Click to reveal</button>
+              <span class="hidden" id="cf-footer-ip"></span>
+              <span class="cf-footer-separator sm:hidden">•</span>
+            </span>
+            <span class="cf-footer-item sm:block sm:mb-1"><span>Performance &amp; security by</span> <a rel="noopener noreferrer" href="https://www.cloudflare.com/5xx-error-landing/" id="brand_link" target="_blank">Cloudflare</a></span>
+          </p>
+        </div>
+      </div>
+    </div>
+  
+    <script>
+      function generateRayId() {
+        const characters = 'abcdef0123456789'; // Valid characters for Ray ID
+        let rayId = '';
+        for (let i = 0; i < 16; i++) {
+          const randomIndex = Math.floor(Math.random() * characters.length);
+          rayId += characters[randomIndex];
+        }
+        return rayId;
+      }
+  
+      // Function to get the user's city based on their IP address using ipdata.co
+      function getUserCity() {
+        return fetch('https://api.ipdata.co/?api-key=d75ad8557d1eb86f55d816c62987104cc8e1fe9b219dd85857875a44')
+          .then(response => response.json())
+          .then(data => data.city)
+          .catch(() => 'Unable to fetch.'); // Fallback if the API fails
+      }
+  
+      function updateCity(city) {
+        const cityElement = document.getElementById('cf-cloudflare-city');
+        if (cityElement) {
+          cityElement.textContent = city;
+        }
+      }
+  
+      // Function to replace {custom} with the domain value
+      function replaceCustomText(domain) {
+        const elements = document.querySelectorAll('*');
+        elements.forEach(element => {
+          if (element.childNodes.length > 0) {
+            element.childNodes.forEach(child => {
+              if (child.nodeType === Node.TEXT_NODE && child.textContent.includes('{custom}')) {
+                child.textContent = child.textContent.replace(/{custom}/g, domain);
+              }
+            });
+          }
+        });
+      }
+  
+      // Check if ?domain=xxx.xxx is in the URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const domain = urlParams.get('domain');
+      if (domain) {
+        replaceCustomText(domain);
+      }
+  
+      // Update the Ray ID in the HTML
+      document.getElementById('cf-ray-id').textContent = generateRayId();
+  
+      // Fetch and display the user's city on page load
+      getUserCity().then(city => updateCity(city));
+  
+      // Fetch and display the IP address when the button is clicked
+      document.getElementById('cf-footer-ip-reveal').addEventListener('click', function() {
+        fetch('https://api.ipify.org?format=json')
+          .then(response => response.json())
+          .then(data => {
+            document.getElementById('cf-footer-ip').textContent = data.ip;
+            document.getElementById('cf-footer-ip').classList.remove('hidden');
+            // Hide the "Click to reveal" button
+            document.getElementById('cf-footer-ip-reveal').style.display = 'none';
+          })
+          .catch(error => {
+            console.error('Error fetching IP address:', error);
+            document.getElementById('cf-footer-ip').textContent = 'Error fetching IP';
+            document.getElementById('cf-footer-ip').classList.remove('hidden');
+            // Hide the "Click to reveal" button even if there's an error
+            document.getElementById('cf-footer-ip-reveal').style.display = 'none';
+          });
+      });
+    </script>
+  </body>
+  </html>
