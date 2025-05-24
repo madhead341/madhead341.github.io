@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShadowHash Terminal v2.1</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #000;
+      color: #00ff00;
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.4;
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    .boot-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      color: #00ff00;
+      padding: 20px;
+      z-index: 1000;
+      font-size: 12px;
+      overflow-y: auto;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .terminal {
+      background: #000;
+      color: #00ff00;
+      padding: 20px;
+      height: 100vh;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .terminal::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 255, 0, 0.03) 2px,
+        rgba(0, 255, 0, 0.03) 4px
+      );
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .header {
+      border: 1px solid #00ff00;
+      padding: 10px;
+      margin-bottom: 20px;
+      background: rgba(0, 255, 0, 0.05);
+    }
+
+    .prompt {
+      color: #00ff00;
+      margin: 10px 0;
+    }
+
+    .prompt::before {
+      content: "shadowhash@terminal:~$ ";
+      color: #ffff00;
+    }
+
+    textarea, input {
+      background: #000;
+      border: 1px solid #00ff00;
+      color: #00ff00;
+      padding: 10px;
+      font-family: inherit;
+      font-size: inherit;
+      width: 100%;
+      margin: 10px 0;
+      resize: vertical;
+    }
+
+    textarea:focus, input:focus {
+      outline: none;
+      border-color: #ffff00;
+      box-shadow: 0 0 10px rgba(255, 255, 0, 0.3);
+    }
+
+    textarea::placeholder, input::placeholder {
+      color: #006600;
+    }
+
+    button {
+      background: #000;
+      border: 1px solid #00ff00;
+      color: #00ff00;
+      padding: 8px 16px;
+      margin: 5px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: inherit;
+      transition: all 0.2s;
+    }
+
+    button:hover {
+      background: #00ff00;
+      color: #000;
+    }
+
+    button:active {
+      background: #ffff00;
+      color: #000;
+    }
+
+    .output {
+      border: 1px solid #00ff00;
+      padding: 15px;
+      margin: 20px 0;
+      background: rgba(0, 255, 0, 0.05);
+      min-height: 60px;
+      word-wrap: break-word;
+    }
+
+    .error {
+      color: #ff0000;
+      border-color: #ff0000;
+      background: rgba(255, 0, 0, 0.05);
+    }
+
+    .warning {
+      color: #ffff00;
+      border-color: #ffff00;
+      background: rgba(255, 255, 0, 0.05);
+    }
+
+    .blink {
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+
+    .typing {
+      overflow: hidden;
+      white-space: nowrap;
+      animation: typing 2s steps(40, end);
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    .boot-line {
+      margin: 2px 0;
+      opacity: 0;
+      animation: fadeIn 0.1s ease-in forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .status-ok {
+      color: #00ff00;
+    }
+
+    .status-error {
+      color: #ff0000;
+    }
+
+    .status-warning {
+      color: #ffff00;
+    }
+
+    .address {
+      color: #00ffff;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div id="bootScreen" class="boot-screen">
+    <div id="bootContent"></div>
+  </div>
+
+  <div id="mainTerminal" class="terminal hidden">
+    <div class="header">
+      <div>SHADOWHASH TERMINAL v2.1.7</div>
+      <div>Copyright (C) 2025 Loser Industries. All rights reserved.</div>
+      <div>System Memory: 16384KB | Available: 15873KB | CPU: Intel 8086 Compatible</div>
+      <div>Security Level: HIGHEST | Encryption Status: ACTIVE</div>
+    </div>
+
+    <div class="prompt">help - Display available commands</div>
+    
+    <div>
+      <label for="inputText">INPUT_BUFFER:</label>
+      <textarea id="inputText" rows="4" placeholder="Enter data for processing..."></textarea>
+    </div>
+
+    <div>
+      <button id="actionButton" onclick="generateShadowHash()">EXECUTE_HASH</button>
+      <button onclick="toggleMode()" id="toggleButton">SWITCH_MODE</button>
+      <button onclick="clearBuffer()">CLEAR_BUFFER</button>
+      <button onclick="showHelp()">HELP</button>
+    </div>
+
+    <div class="output" id="output">
+      <div>SYSTEM READY - AWAITING INPUT</div>
+      <div>Mode: ENCODING | Algorithm: ShadowHash-v2.1</div>
+      <div>Status: <span class="status-ok">[OK]</span></div>
+    </div>
+
+    <div id="systemLog" class="output">
+      <div>SYSTEM LOG:</div>
+      <div id="logContent">
+        <div>> Terminal initialized at <span id="timestamp"></span></div>
+        <div>> Modules loaded successfully</div>
+        <div>> Security protocols active</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let encodeMode = true;
+    let bootComplete = false;
+
+    const bootMessages = [
+      'SYSTEM BOOT INITIATED...',
+      'Loading BIOS v3.14.159...',
+      'Memory test: 16384KB OK',
+      'CPU: Intel 8086 Compatible - Status: OK',
+      'Initializing modules...',
+      'Loading ShadowHash algorithm v2.1...',
+      '> shadowhash.sys ...................... [OK]',
+      '> crypto_engine.dll ................... [OK]',
+      '> security_protocols.bin .............. [OK]',
+      'Scanning for security threats...',
+      'Security scan complete - No threats detected',
+      'Loading system addresses:',
+      '> Core Module: 0xA1B2C3D4E5F67890',
+      '> Hash Engine: 0x1F2E3D4C5B6A7980',
+      '> Buffer Manager: 0x9E8D7C6B5A49382F',
+      '> Security Layer: 0x7A6B5C4D3E2F1908',
+      'Establishing secure connections...',
+      'Connection to remote server: ESTABLISHED',
+      'Encryption handshake: COMPLETE',
+      'Loading user interface components...',
+      'Terminal ready for cryptographic operations',
+      'Welcome to ShadowHash Terminal v2.1.7',
+      '',
+      'System boot complete - Press any key to continue'
+    ];
+
+    function randomHexAddress() {
+      return '0x' + Math.random().toString(16).substr(2, 16).toUpperCase().padEnd(16, '0');
+    }
+
+    function showBootScreen() {
+      const bootContent = document.getElementById('bootContent');
+      let messageIndex = 0;
+
+      function displayNextMessage() {
+        if (messageIndex < bootMessages.length) {
+          const line = document.createElement('div');
+          line.className = 'boot-line';
+          line.style.animationDelay = `${messageIndex * 0.1}s`;
+          
+          if (bootMessages[messageIndex].includes('0x')) {
+            line.innerHTML = bootMessages[messageIndex].replace(/0x[A-F0-9]+/g, 
+              `<span class="address">${randomHexAddress()}</span>`);
+          } else {
+            line.textContent = bootMessages[messageIndex];
+          }
+          
+          bootContent.appendChild(line);
+          messageIndex++;
+          
+          const delay = bootMessages[messageIndex - 1].includes('...') ? 
+            Math.random() * 500 + 200 : 100;
+          setTimeout(displayNextMessage, delay);
+        } else {
+          setTimeout(() => {
+            document.getElementById('bootScreen').classList.add('hidden');
+            document.getElementById('mainTerminal').classList.remove('hidden');
+            bootComplete = true;
+            updateTimestamp();
+          }, 2000);
+        }
+      }
+      
+      displayNextMessage();
+      bootContent.appendChild(line);
+      bootContent.scrollTop = bootContent.scrollHeight;
+    }
+
+    function updateTimestamp() {
+      const now = new Date();
+      const timestamp = now.toLocaleString();
+      document.getElementById('timestamp').textContent = timestamp;
+    }
+
+    function insertRandomDigits(hashStr) {
+      let modified = '';
+      let counter = 0;
+      for (let i = 0; i < hashStr.length; i++) {
+        modified += hashStr[i];
+        if (++counter === 5) {
+          modified += Math.floor(Math.random() * 10);
+          counter = 0;
+        }
+      }
+      return modified;
+    }
+
+    function stripRandomDigits(hashStr) {
+      return hashStr.replace(/(.{5})./g, '$1');
+    }
+
+    function generateShadowHash() {
+      const input = document.getElementById('inputText').value;
+      
+      if (!input.trim()) {
+        showError('ERROR: Input buffer is empty');
+        return;
+      }
+      
+      logMessage('> Initiating hash generation...');
+      
+      setTimeout(() => {
+        let result = [];
+        let checksum = 0;
+
+        for (let i = 0; i < input.length; i++) {
+          const ascii = input.charCodeAt(i);
+          const digitCount = ascii.toString().length + i.toString().length;
+          const shadowed = ascii + i + digitCount;
+          result.push(shadowed);
+          checksum += shadowed;
+        }
+
+        let rawHash = result.join('-');
+        let obfuscatedHash = insertRandomDigits(rawHash);
+
+        document.getElementById('output').innerHTML = 
+          `<div>HASH GENERATION COMPLETE</div>
+           <div>Algorithm: ShadowHash-v2.1</div>
+           <div>Input Length: ${input.length} bytes</div>
+           <div>Output Hash: <span class="address">${obfuscatedHash}</span></div>
+           <div>Checksum: <span class="address">SH${checksum}</span></div>
+           <div>Status: <span class="status-ok">[COMPLETE]</span></div>`;
+        
+        logMessage('> Hash generation successful');
+        logMessage(`> Processing time: ${Math.random() * 100 + 50 | 0}ms`);
+      }, 500);
+    }
+
+    function decodeShadowHash() {
+      const input = document.getElementById('inputText').value;
+      
+      if (!input.trim()) {
+        showError('ERROR: Input buffer is empty');
+        return;
+      }
+      
+      logMessage('> Initiating hash decoding...');
+      
+      setTimeout(() => {
+        try {
+          const clean = stripRandomDigits(input);
+          const numbers = clean.split('-');
+
+          let result = '';
+          for (let i = 0; i < numbers.length; i++) {
+            let total = parseInt(numbers[i]);
+            if (isNaN(total)) {
+              throw new Error('Invalid hash format');
+            }
+            
+            let approxAscii = 32;
+            let found = false;
+            while (approxAscii < 127) {
+              let digitCount = approxAscii.toString().length + i.toString().length;
+              let testSum = approxAscii + i + digitCount;
+              if (testSum === total) {
+                result += String.fromCharCode(approxAscii);
+                found = true;
+                break;
+              }
+              approxAscii++;
+            }
+            if (!found) {
+              throw new Error('Hash is corrupted!');
+            }
+          }
+
+          document.getElementById('output').innerHTML = 
+            `<div>HASH DECODING COMPLETE</div>
+             <div>Algorithm: ShadowHash-v2.1-decode</div>
+             <div>Decoded Text: "${result}"</div>
+             <div>Verification: <span class="status-ok">[PASSED]</span></div>
+             <div>Status: <span class="status-ok">[COMPLETE]</span></div>`;
+          
+          logMessage('> Hash decoding successful');
+          logMessage('> Integrity check passed');
+        } catch (error) {
+          showError(`DECODE ERROR: ${error.message}`);
+        }
+      }, 500);
+    }
+
+    function toggleMode() {
+      encodeMode = !encodeMode;
+      document.getElementById('actionButton').innerText = encodeMode ? 'EXECUTE_HASH' : 'DECODE_HASH';
+      document.getElementById('actionButton').setAttribute('onclick', encodeMode ? 'generateShadowHash()' : 'decodeShadowHash()');
+      document.getElementById('toggleButton').innerText = encodeMode ? 'SWITCH_MODE' : 'SWITCH_MODE';
+      
+      document.getElementById('output').innerHTML = 
+        `<div>MODE SWITCHED</div>
+         <div>Current Mode: ${encodeMode ? 'ENCODING' : 'DECODING'}</div>
+         <div>Algorithm: ShadowHash-v2.1</div>
+         <div>Status: <span class="status-ok">[READY]</span></div>`;
+      
+      logMessage(`> Mode switched to ${encodeMode ? 'ENCODING' : 'DECODING'}`);
+      document.getElementById('inputText').value = '';
+    }
+
+    function clearBuffer() {
+      document.getElementById('inputText').value = '';
+      document.getElementById('output').innerHTML = 
+        `<div>BUFFER CLEARED</div>
+         <div>Mode: ${encodeMode ? 'ENCODING' : 'DECODING'}</div>
+         <div>Status: <span class="status-ok">[READY]</span></div>`;
+      logMessage('> Input buffer cleared');
+    }
+
+    function showHelp() {
+      document.getElementById('output').innerHTML = 
+        `<div>SHADOWHASH TERMINAL COMMANDS:</div>
+         <div>EXECUTE_HASH - Generate hash from input</div>
+         <div>DECODE_HASH - Decode ShadowHash input</div>
+         <div>SWITCH_MODE - Toggle encode/decode mode</div>
+         <div>CLEAR_BUFFER - Clear input buffer</div>
+         <div>HELP - Show this help message</div>
+         <div></div>
+         <div>ShadowHash Algorithm: Proprietary encryption</div>
+         <div>Security Level: Highest</div>
+         <div>Status: <span class="status-ok">[OPERATIONAL]</span></div>`;
+    }
+
+    function showError(message) {
+      document.getElementById('output').innerHTML = 
+        `<div class="error">SYSTEM ERROR</div>
+         <div class="error">${message}</div>
+         <div class="error">Error Code: 0x${Math.random().toString(16).substr(2, 8).toUpperCase()}</div>
+         <div class="error">Status: <span class="status-error">[FAILED]</span></div>`;
+      logMessage(`> ERROR: ${message}`);
+    }
+
+    function logMessage(message) {
+      const logContent = document.getElementById('logContent');
+      const line = document.createElement('div');
+      line.textContent = message;
+      logContent.appendChild(line);
+      
+      // Keep only last 10 log entries
+      while (logContent.children.length > 10) {
+        logContent.removeChild(logContent.firstChild);
+      }
+    }
+
+    // Simulate random system events
+    function simulateSystemEvents() {
+      if (!bootComplete) return;
+      
+      const events = [
+        '> Memory optimization complete',
+        '> Security scan routine executed',
+        '> Buffer integrity verified',
+        '> Connection heartbeat successful',
+        '> Cache cleared automatically'
+      ];
+      
+      if (Math.random() < 0.1) { // 10% chance
+        logMessage(events[Math.floor(Math.random() * events.length)]);
+      }
+    }
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+      if (!bootComplete && e.key !== 'Escape') {
+        document.getElementById('bootScreen').classList.add('hidden');
+        document.getElementById('mainTerminal').classList.remove('hidden');
+        bootComplete = true;
+        updateTimestamp();
+      }
+      
+      if (e.ctrlKey && e.key === 'Enter') {
+        if (encodeMode) {
+          generateShadowHash();
+        } else {
+          decodeShadowHash();
+        }
+      }
+    });
+
+    // Initialize
+    window.onload = function() {
+      showBootScreen();
+      setInterval(simulateSystemEvents, 5000);
+    };
+  </script>
+</body>
+</html>
