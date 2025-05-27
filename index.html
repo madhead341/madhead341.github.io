@@ -863,10 +863,6 @@
                     <h2 class="projects-title">My Github Projects</h2>
                     <p class="projects-subtitle">A collection of my latest work and contributions</p>
                 </div>
-                <div class="visit-counter">
-                    <span class="counter-label">Total website visits:</span>
-                    <span class="counter-number" id="visitCount">0</span>
-                </div>
             </div>
             <div class="projects-content">
                 <div class="project-card" id="discord-rat">
@@ -1593,19 +1589,6 @@ function updateCursorAppearance() {
         cursor.style.borderColor = 'rgba(102, 126, 234, 0.3)';
     }
 }
-function updateVisitCounter() {
-    let visitCount = localStorage.getItem('websiteVisits') || 0;
-    visitCount = parseInt(visitCount) + 1;
-    
-    localStorage.setItem('websiteVisits', visitCount);
-    
-    document.getElementById('visitCount').textContent = visitCount.toLocaleString();
-}
-
-document.addEventListener('DOMContentLoaded', updateVisitCounter);
-            
-</script>
-
 <!-- Default Statcounter code for losr dev https://losr.is-a.dev -->
 <script type="text/javascript">
 var sc_project=13139269; 
