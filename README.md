@@ -9,4 +9,4 @@ My github.io page
 ``` 
 [https://madhead341.github.io/](https://madhead341.github.io/index.html)
 
-```[https։/̸youtube.com/watch?v=dQw4w9WgXcQ](https://losr.is-a.dev/assets/index.html)```
+[https://losr.is-a.dev/](https://losr.is-a.dev)
