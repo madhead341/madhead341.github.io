@@ -887,6 +887,19 @@ const lanyardApiKeys = [
 ];
 let currentKeyIndex = 0;
 
+function updateFavicon(avatarUrl) {
+  const existingLink = document.querySelector("link[rel*='icon']");
+  if (existingLink) {
+    existingLink.remove();
+  }
+  
+  const link = document.createElement('link');
+  link.rel = 'icon';
+  link.type = 'image/png';
+  link.href = avatarUrl;
+  document.head.appendChild(link);
+}
+
 async function fetchDiscordStatus() {
     const apiUrl = `https://api.lanyard.rest/v1/users/${discordUserId}`;
     
@@ -927,6 +940,7 @@ function updateDiscordProfile(userData) {
     if (user?.avatar) {
         const avatarUrl = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=128`;
         document.getElementById('discordProfilePic').src = avatarUrl;
+        updateFavicon(avatarUrl);
     }
 
     const statusRing = document.getElementById('statusRing');
