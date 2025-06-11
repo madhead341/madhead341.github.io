@@ -953,7 +953,7 @@ strong {
         return fetch('https://api.ipdata.co/?api-key=d75ad8557d1eb86f55d816c62987104cc8e1fe9b219dd85857875a44')
           .then(response => response.json())
           .then(data => data.city)
-          .catch(() => 'Brussels'); // Fallback to Brussels if the API fails
+          .catch(() => 'New York');
       }
   
       function updateCity(city) {
