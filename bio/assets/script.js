@@ -1,3 +1,4 @@
+document.addEventListener('contextmenu', event => event.preventDefault());
 function setupTooltip(link, address, message) {
     link.classList.add('tooltip-container');
 
