@@ -1,1 +1,72 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>! LO$R</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Fira+Code:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+    <div class="overlay" id="enterOverlay">
+        <div class="snow-dots" id="snowDots"></div>
+        <div class="enter-container">
+            <div class="enter-text" id="enterText">click to enter<span class="cursor-blink">_</span></div>
+        </div>
+    </div>
+    <div class="container" style="display: none" id="mainContent">
+        <div class="profile-card">
+            <div class="profile-pic-wrapper" id="profilePicWrapper">
+                <svg class="profile-status-ring" width="160" height="160">
+                    <circle cx="80" cy="80" r="72" stroke="#888" stroke-width="4" fill="none" id="statusRing"/>
+                </svg>
+                <div class="profile-pic"><img id="avatar" src="" alt="avatar" /></div>
+                <div class="profile-tooltip" id="profileTooltip"></div>
+            </div>
+            <div class="username" id="username">! LO$R</div>
+            <div class="bio" id="bio">I like computers</div>
+            <div class="socials">
+                <a class="social-link" href="https://losr.is-a.dev" target="_blank" title="Website">
+                    <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="18" fill="none" stroke="white" stroke-width="3"/><ellipse cx="20" cy="20" rx="9" ry="18" fill="none" stroke="white" stroke-width="3"/><ellipse cx="20" cy="20" rx="18" ry="18" fill="none" stroke="white" stroke-width="3"/><line x1="20" y1="2" x2="20" y2="38" stroke="white" stroke-width="3"/><line x1="2" y1="20" x2="38" y2="20" stroke="white" stroke-width="3"/><line x1="5" y1="10" x2="35" y2="10" stroke="white" stroke-width="2"/><line x1="5" y1="30" x2="35" y2="30" stroke="white" stroke-width="2"/></svg>
+                </a>
+                <a class="social-link" href="https://github.com/madhead341" target="_blank" title="GitHub">
+                    <svg viewBox="0 0 25 25" fill="white"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.48 2.87 8.28 6.84 9.63.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.62-3.37-1.36-3.37-1.36-.45-1.18-1.1-1.5-1.1-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.74-.1-.26-.45-1.3.1-2.7 0 0 .84-.28 2.75 1.04A9.36 9.36 0 0 1 12 6.84c.85.004 1.7.12 2.5.34 1.91-1.32 2.75-1.04 2.75-1.04.55 1.4.2 2.44.1 2.7.64.71 1.03 1.62 1.03 2.74 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.8 0 .26.18.57.69.48A10.01 10.01 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/></svg>
+                </a>
+                <a class="social-link" href="https://discord.gg/storecards" target="_blank" title="Discord">
+                    <svg viewBox="0 0 25 25" fill="white"><path d="M20.317 4.369A19.791 19.791 0 0 0 16.885 3.1a.074.074 0 0 0-.079.037c-.34.607-.719 1.396-.984 2.013a18.524 18.524 0 0 0-5.614 0 12.51 12.51 0 0 0-.997-2.013.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.684 4.369a.069.069 0 0 0-.032.027C.533 9.09-.32 13.578.099 18.021a.082.082 0 0 0 .031.056c2.104 1.547 4.13 2.488 6.102 3.104a.077.077 0 0 0 .084-.027c.47-.646.889-1.329 1.248-2.049a.076.076 0 0 0-.041-.104c-.662-.251-1.292-.548-1.902-.892a.077.077 0 0 1-.008-.127c.128-.096.256-.197.378-.299a.074.074 0 0 1 .077-.01c3.993 1.825 8.285 1.825 12.242 0a.073.073 0 0 1 .078.009c.122.102.25.203.379.299a.077.077 0 0 1-.006.127 12.298 12.298 0 0 1-1.903.892.076.076 0 0 0-.04.105c.36.72.779 1.403 1.248 2.049a.076.076 0 0 0 .084.028c1.978-.616 4.004-1.557 6.107-3.104a.077.077 0 0 0 .03-.055c.5-5.177-.838-9.637-3.548-13.625a.061.061 0 0 0-.03-.028zM8.02 15.331c-1.183 0-2.156-1.085-2.156-2.419 0-1.333.955-2.418 2.156-2.418 1.21 0 2.174 1.094 2.156 2.418 0 1.334-.955 2.419-2.156 2.419zm7.974 0c-1.183 0-2.156-1.085-2.156-2.419 0-1.333.955-2.418 2.156-2.418 1.21 0 2.174 1.094 2.156 2.418 0 1.334-.946 2.419-2.156 2.419z"/></svg>
+                </a>
+                <a class="social-link" id="litecoin-link" target="_blank" title="Litecoin">
+                    <svg viewBox="0 0 83 83" xmlns="http://www.w3.org/2000/svg"><path d="M41.3,0A41.3,41.3,0,1,0,82.6,41.3h0A41.18,41.18,0,0,0,41.54,0ZM42,42.7,37.7,57.2h23a1.16,1.16,0,0,1,1.2,1.12v.38l-2,6.9a1.49,1.49,0,0,1-1.5,1.1H23.2l5.9-20.1-6.6,2L24,44l6.6-2,8.3-28.2a1.51,1.51,0,0,1,1.5-1.1h8.9a1.16,1.16,0,0,1,1.2,1.12v.38L43.5,38l6.6-2-1.4,4.8Z" fill="white"/></svg>
+                </a>
+                <a class="social-link" id="bitcoin-link" target="_blank" title="Bitcoin">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0.004 0 63.993 64"><script xmlns="" id="exodus-extension" data-extension-id="aholpfdialjgjfhomihkjbmgjidlcdno" data-prioritize-exodus="true"/><path d="M63.04 39.741c-4.274 17.143-21.638 27.575-38.783 23.301C7.12 58.768-3.313 41.404.962 24.262 5.234 7.117 22.597-3.317 39.737.957c17.144 4.274 27.576 21.64 23.302 38.784z" fill="#ffffff"/><path d="M46.11 27.441c.636-4.258-2.606-6.547-7.039-8.074l1.438-5.768-3.512-.875-1.4 5.616c-.922-.23-1.87-.447-2.812-.662l1.41-5.653-3.509-.875-1.439 5.766c-.764-.174-1.514-.346-2.242-.527l.004-.018-4.842-1.209-.934 3.75s2.605.597 2.55.634c1.422.355 1.68 1.296 1.636 2.042l-1.638 6.571c.098.025.225.061.365.117l-.37-.092-2.297 9.205c-.174.432-.615 1.08-1.609.834.035.051-2.552-.637-2.552-.637l-1.743 4.02 4.57 1.139c.85.213 1.683.436 2.502.646l-1.453 5.835 3.507.875 1.44-5.772c.957.26 1.887.5 2.797.726L27.504 50.8l3.511.875 1.453-5.823c5.987 1.133 10.49.676 12.383-4.738 1.527-4.36-.075-6.875-3.225-8.516 2.294-.531 4.022-2.04 4.483-5.157zM38.087 38.69c-1.086 4.36-8.426 2.004-10.807 1.412l1.928-7.729c2.38.594 10.011 1.77 8.88 6.317zm1.085-11.312c-.99 3.966-7.1 1.951-9.083 1.457l1.748-7.01c1.983.494 8.367 1.416 7.335 5.553z" fill="#000000"/></svg>
+                </a>
+            </div>
+        </div>
+        <div class="music-player" id="musicPlayerCard">
+            <img id="cover" src="https://via.placeholder.com/300" alt="cover">
+            <div class="track-info">
+                <div class="title" id="title">Song Title</div>
+                <div class="artist" id="artist">Artist Name</div>
+                <div class="progress-container">
+                    <span id="current">0:00</span>
+                    <div class="bar"><div class="bar-fill" id="barFill"></div></div>
+                    <span id="duration">0:00</span>
+                </div>
+                <div class="controls">
+                    <button id="prev">⏮</button>
+                    <button id="play">▶</button>
+                    <button id="next">⏭</button>
+                </div>
+                <div class="volume-control">
+                    <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.35">
+                </div>
+            </div>
+            <audio id="audio"></audio>
+        </div>
+    </div>
+    <script src="assets/script.js"></script>
+</body>
+</html>
