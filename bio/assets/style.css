@@ -33,6 +33,11 @@ body {
     pointer-events: none;
     z-index: 99999;
     transform: translate(-50%, -50%);
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-drag: none;
 }
 
 .cursor-follower {
