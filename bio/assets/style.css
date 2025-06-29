@@ -22,6 +22,16 @@ body {
     -webkit-user-drag: none;
 }
 
+::selection {
+  background-color: black;
+  color: white;
+}
+
+::-moz-selection {
+  background-color: black;
+  color: white;
+}
+
 .cursor {
     position: fixed;
     left: 0;
