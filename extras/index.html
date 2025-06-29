@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>! LO$R | Extras</title>
+    <link rel="stylesheet" href="assets/stylesheets/extras.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-title">Tools</div>
+        <div class="tab-item active" onclick="switchTab('home')">Home</div>
+        <div class="tab-item" onclick="switchTab('encoder')">Encoder/Decoder</div>
+        <div class="tab-item" onclick="switchTab('browser')">Browser Info</div>
+        <div class="tab-item" onclick="switchTab('epoch')">Time Converter</div>
+        <div class="tab-item" onclick="switchTab('regex')">Regex Tester</div>
+        <div class="tab-item" onclick="switchTab('color')">Color Tools</div>
+        <div class="tab-item" onclick="switchTab('unit')">Unit Converter</div>
+    </div>
+
+    <div class="main-container">
+        <!--  Home Tab Content  -->
+        <div id="home-tab" class="tab-content active">
+        <div class="header">
+            <div class="logo">Tools Collection</div>
+            <div class="subtitle">Utilities I use somewhat regularly</div>
+        </div>
+        
+        <div class="home-content">
+            <div class="welcome-section">
+                <h1 class="welcome-title">Welcome to my Tools</h1>
+                <p class="welcome-text">
+                    A collection of tools and utilities that I find useful in my work.<br>
+                    These tools run entirely in your browser - no data is sent to any servers.
+                </p>
+                
+                <div class="discord-profile-container">
+                    <div class="discord-profile" id="discordProfile">
+                        <div class="profile-pic-container">
+                            <img id="discordProfilePic" src="https://via.placeholder.com/80" alt="Discord Profile" class="discord-profile-pic">
+                            <div id="statusRing" class="status-ring offline"></div>
+                        </div>
+                        
+                        <div class="profile-tooltip" id="profileTooltip">
+                            <div class="tooltip-header">
+                                <div class="tooltip-display-name" id="tooltipDisplayName">! LO$R</div>
+                                <div class="tooltip-username" id="tooltipUsername">@.lo5r.</div>
+                            </div>
+                            <div class="tooltip-status">
+                                <div class="status-indicator">
+                                    <div class="status-dot" id="tooltipStatusDot"></div>
+                                    <span id="tooltipStatus">Offline</span>
+                                </div>
+                            </div>
+                            <div class="spotify-status" id="spotifyStatus" style="display: none;">
+                                <div class="spotify-icon">♪</div>
+                                <div class="spotify-info">
+                                    <div class="spotify-track" id="tooltipSpotifyTrack"></div>
+                                    <div class="spotify-artist" id="tooltipSpotifyArtist"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="https://losr.is-a.dev" class="main-site-link" target="_blank">
+                    losr.is-a.dev
+                </a>
+            </div>
+
+            <div class="tools-grid">
+                <div class="tool-card" onclick="switchTab('encoder')">
+                    <div class="tool-title">Text Encoder/Decoder</div>
+                    <div class="tool-description">
+                        Encode and decode text using various methods including URL, Base64, HTML, Hex, and many more encoding options with hash generators.
+                    </div>
+                </div>
+                <div class="tool-card" onclick="switchTab('browser')">
+                    <div class="tool-title">Browser Information</div>
+                    <div class="tool-description">
+                        View detailed information about your browser, device, and network connection.
+                    </div>
+                </div>
+                <div class="tool-card" onclick="switchTab('epoch')">
+                    <div class="tool-title">Time Converter</div>
+                    <div class="tool-description">
+                        Convert Unix timestamps to human-readable dates and vice versa.
+                    </div>
+                </div>
+                <div class="tool-card" onclick="switchTab('regex')">
+                    <div class="tool-title">Regex Tester</div>
+                    <div class="tool-description">
+                        Test and visualize your regular expressions.
+                    </div>
+                </div>
+                <div class="tool-card" onclick="switchTab('color')">
+                    <div class="tool-title">Color Tools</div>
+                    <div class="tool-description">
+                        Convert between HEX, RGB, and HSL color formats with live preview.
+                    </div>
+                </div>
+                <div class="tool-card" onclick="switchTab('unit')">
+                    <div class="tool-title">Unit Converter</div>
+                    <div class="tool-description">
+                        Convert between different units of Length, Mass, Time, and Currency.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <div id="epoch-tab" class="tab-content">
+          <div class="header">
+            <div class="logo">Epoch Converter</div>
+            <div class="subtitle">Convert Unix timestamps to human-readable dates and vice versa</div>
+          </div>
+          <div class="section">
+            <label class="input-label">Unix Timestamp</label>
+            <input type="number" id="epochInput" oninput="convertEpoch()" class="input-field" placeholder="e.g. 1717094400">
+            <div style="margin-top: 1rem; color: #a0aec0">Readable Date: <span id="epochResult">-</span></div>
+          </div>
+        </div>
+        
+        <div id="regex-tab" class="tab-content">
+          <div class="header">
+            <div class="logo">Regex Tester</div>
+            <div class="subtitle">Test and visualize your regular expressions</div>
+          </div>
+          <div class="section">
+            <label class="input-label">Regex Pattern</label>
+            <input id="regexPattern" class="input-field" placeholder="e.g. /hello/i">
+            <label class="input-label" style="margin-top: 1rem;">Test Text</label>
+            <div id="regexText" class="input-field" contenteditable="true" style="min-height: 6rem; white-space: pre-wrap;"></div>
+            <button onclick="runRegexTest()" class="upload-button" style="margin-top: 1rem;">Test</button>
+            <pre id="regexOutput" style="margin-top: 1rem; color: #67e8f9; white-space: pre-wrap;"></pre>
+          </div>
+        </div>
+        
+        <div id="color-tab" class="tab-content">
+          <div class="header">
+            <div class="logo">Color Code Tool</div>
+            <div class="subtitle">Convert between HEX, RGB, and HSL color formats</div>
+          </div>
+          <div class="section">
+            <label class="input-label">HEX</label>
+            <input type="text" id="hexColor" class="input-field" oninput="convertColorFrom('hex')" placeholder="#667eea">
+        
+            <label class="input-label" style="margin-top: 1rem;">RGB</label>
+            <input type="text" id="rgbColor" class="input-field" oninput="convertColorFrom('rgb')" placeholder="rgb(102, 126, 234)">
+        
+            <label class="input-label" style="margin-top: 1rem;">HSL</label>
+            <input type="text" id="hslColor" class="input-field" oninput="convertColorFrom('hsl')" placeholder="hsl(231, 74%, 66%)">
+        
+            <div style="margin-top: 1rem; color: #a0aec0">Preview:</div>
+            <div id="colorPreview" style="margin-top: 0.5rem; height: 50px; border-radius: 8px; background: #667eea;"></div>
+          </div>
+        </div>
+        
+        <div id="unit-tab" class="tab-content">
+          <div class="header">
+            <div class="logo">Unit Converter</div>
+            <div class="subtitle">Convert between different units of Length, Mass, Time, and Currency</div>
+          </div>
+          <div class="section">
+            <label class="input-label">Category</label>
+            <select id="unitCategory" class="input-field small-input" onchange="renderUnitOptions()">
+              <option value="length">Length</option>
+              <option value="mass">Mass</option>
+              <option value="time">Time</option>
+              <option value="currency">Currency</option>
+            </select>
+        
+            <div style="margin-top: 1rem">
+              <label class="input-label">From</label>
+              <select id="unitFrom" class="input-field small-input"></select>
+        
+              <label class="input-label" style="margin-top: 1rem;">To</label>
+              <select id="unitTo" class="input-field small-input"></select>
+        
+              <label class="input-label" style="margin-top: 1rem;">Value</label>
+              <input type="number" id="unitValue" class="input-field small-input" oninput="convertUnit()">
+        
+              <div style="margin-top: 1rem; color: #a0aec0">Result: <span id="unitResult">-</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="encoder-tab" class="tab-content">
+            <div class="header">
+                <div class="logo">Encoder And Decoder</div>
+                <div class="subtitle">Universal String Encoder, Decoder & Hash Generator</div>
+            </div>
+
+            <div class="input-section">
+                <div class="input-label">
+                    Input Text
+                    <button class="upload-button" onclick="document.getElementById('fileInput').click()">Upload</button>
+                    <button class="upload-button" onclick="clearInput()">Clear</button>
+                    <input type="file" id="fileInput" class="file-input" accept=".txt" onchange="uploadFile(event)">
+                </div>
+                <textarea class="input-field" id="inputText" placeholder="Enter your text here to encode, decode, or hash..." oninput="processAll()" style="resize: none;"></textarea>
+                <div class="encoding-selector">
+                    <label for="encodingSelect">Text Encoding:</label>
+                    <select id="encodingSelect" onchange="processAll()">
+                        <option value="utf8" selected>UTF-8</option>
+                        <option value="utf16">UTF-16</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <div class="section">
+                    <div class="section-title">ENCODE</div>
+                    
+                    <div class="category-group">
+                        <div class="category-title">Basic Encoding</div>
+                        
+                        <div class="method-group" onclick="toggleMethod(this)">
+                            <div class="method-header">
+                                <span class="method-name">URL Encode</span>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="method-content">
+                                <div class="method-output" id="urlEncode">
+                                    <span class="placeholder-text">URL encoded text will appear here</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="method-group" onclick="toggleMethod(this)">
+                            <div class="method-header">
+                                <span class="method-name">HTML Escape (Basic)</span>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="method-content">
+                                <div class="method-output" id="htmlEncode">
+                                    <span class="placeholder-text">HTML encoded text will appear here</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="method-group" onclick="toggleMethod(this)">
+                            <div class="method-header">
+                                <span class="method-name">HTML Escape (Fully)</span>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="method-content">
+                                <div class="method-output" id="htmlEncodeFull">
+                                    <span class="placeholder-text">Fully HTML encoded text will appear here</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="method-group" onclick="toggleMethod(this)">
+                            <div class="method-header">
+                                <span class="method-name">Unicode Escape</span>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="method-content">
+                                <div class="method-output" id="unicodeEscape">
+                                    <span class="placeholder-text">Unicode escaped text will appear here</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="category-group">
+                        <div class="category-title">Base Encoding</div>
+                        
+                        <div class="method-group" onclick="toggleMethod(this)">
+                            <div class="method-header">
+                                <span class="method-name">Base64</span>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="method-content">
+                                <div class="method-output" id="base64Encode">
+                                    <span class="placeholder-text">Base64 encoded text will appear here</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="method-group" onclick="toggleMethod(this)">
+                            <div class="method-header">
+                                <span class="method-name">Base32</span>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="method-content">
+                                <div class="method-output" id="base32Encode">
+                                    <span class="placeholder-text">Base32 encoded text will appear here</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="method-group" onclick="toggleMethod(this)">
+                            <div class="method-header">
+                                <span class="method-name">ASCII85</span>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="method-content">
+                                <div class="method-output" id="ascii85Encode">
+                                    <span class="placeholder-text">ASCII85 encoded text will appear here</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="category-group">
+                        <div class="category-title">Number Systems</div>
+                        
+                        <div class="method-group" onclick="toggleMethod(this)">
+                            <div class="method-header">
+                                <span class="method-name">Hex String</span>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="method-content">
+                                <div class="method-output" id="hexEncode">
+                                    <span class="placeholder-text">Hex encoded text will appear here</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="method-group" onclick="toggleMethod(this)">
+                            <div class="method-header">
+                                <span class="method-name">Binary String</span>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="method-content">
+                                <div class="method-output" id="binaryEncode">
+                                    <span class="placeholder-text">Binary encoded text will appear here</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="method-group" onclick="toggleMethod(this)">
+                            <div class="method-header">
+                                <span class="method-name">Octal String</span>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="method-content">
+                                <div class="method-output" id="octalEncode">
+                                    <span class="placeholder-text">Octal encoded text will appear here</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="category-group">
+                        <div class="category-title">Cipher Encoding</div>
+                        
+                        <div class="method-group" onclick="toggleMethod(this)">
+                            <div class="method-header">
+                                <span class="method-name">ROT13</span>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="method-content">
+                                <div class="method-output" id="rot13Encode">
+                                    <span class="placeholder-text">ROT13 encoded text will appear here</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="method-group" onclick="toggleMethod(this)">
+                            <div class="method-header">
+                                <span class="method-name">Caesar Cipher (shift 3)</span>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="method-content">
+                                <div class="method-output" id="caesarEncode">
+                                    <span class="placeholder-text">Caesar cipher text will appear here</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="method-group" onclick="toggleMethod(this)">
+                            <div class="method-header">
+                                <span class="method-name">Atbash</span>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="method-content">
+                                <div class="method-output" id="atbashEncode">
+                                    <span class="placeholder-text">Atbash cipher text will appear here</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="category-group">
+                        <div class="category-title">Alternative Encodings</div>
+                        
+                        <div class="method-group" onclick="toggleMethod(this)">
+                            <div class="method-header">
+                                <span class="method-name">Morse Code</span>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="method-content">
+                                <div class="method-output" id="morseEncode">
+                                    <span class="placeholder-text">Morse code will appear here</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="method-group" onclick="toggleMethod(this)">
+                            <div class="method-header">
+                                <span class="method-name">Quoted-Printable</span>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="method-content">
+                                <div class="method-output" id="quotedPrintableEncode">
+                                    <span class="placeholder-text">Quoted-printable text will appear here</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">DECODE</div>
+                    
+                    <div class="category-group">
+                        <div class="category-title">Basic Decoding</div>
+                        
+                        <div class="method-group" onclick="toggleMethod(this)">
+                            <div class="method-header">
+                                <span class="method-name">URL Decode</span>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="method-content">
+                                <div class="method-output" id="urlDecode">
+                                    <span class="placeholder-text">URL decoded text will appear here</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="method-group" onclick="toggleMethod(this)">
+                            <div class="method-header">
+                                <span class="method-name">HTML Decode</span>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="method-content">
+                                <div class="method-output" id="htmlDecode">
+                                    <span class="placeholder-text">HTML decoded text will appear here</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="method-group" onclick="toggleMethod(this)">
+                            <div class="method-header">
+                                <span class="method-name">Unicode Unescape</span>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="method-content">
+                                <div class="method-output" id="unicodeUnescape">
+                                    <span class="placeholder-text">Unicode unescaped text will appear here</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="category-group">
+                        <div class="category-title">Base Decoding</div>
+                        
+                        <div class="method-group" onclick="toggleMethod(this)">
+                            <div class="method-header">
+                                <span class="method-name">Base64 Decode</span>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="method-content">
+                                <div class="method-output" id="base64Decode">
+                                    <span class="placeholder-text">Base64 decoded text will appear here</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="method-group" onclick="toggleMethod(this)">
+                            <div class="method-header">
+                                <span class="method-name">Base32 Decode</span>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="method-content">
+                                <div class="method-output" id="base32Decode">
+                                    <span class="placeholder-text">Base32 decoded text will appear here</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="method-group" onclick="toggleMethod(this)">
+                            <div class="method-header">
+                                <span class="method-name">ASCII85 Decode</span>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="method-content">
+                                <div class="method-output" id="ascii85Decode">
+                                    <span class="placeholder-text">ASCII85 decoded text will appear here</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="category-group">
+                        <div class="category-title">Number Systems</div>
+                        
+                        <div class="method-group" onclick="toggleMethod(this)">
+                            <div class="method-header">
+                                <span class="method-name">Hex Decode</span>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="method-content">
+                                <div class="method-output" id="hexDecode">
+                                    <span class="placeholder-text">Hex decoded text will appear here</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="method-group" onclick="toggleMethod(this)">
+                            <div class="method-header">
+                                <span class="method-name">Binary Decode</span>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="method-content">
+                                <div class="method-output" id="binaryDecode">
+                                    <span class="placeholder-text">Binary decoded text will appear here</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="method-group" onclick="toggleMethod(this)">
+                            <div class="method-header">
+                                <span class="method-name">Octal Decode</span>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="method-content">
+                                <div class="method-output" id="octalDecode">
+                                    <span class="placeholder-text">Octal decoded text will appear here</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="category-group">
+                        <div class="category-title">Cipher Decoding</div>
+                        
+                        <div class="method-group" onclick="toggleMethod(this)">
+                            <div class="method-header">
+                                <span class="method-name">ROT13 Decode</span>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="method-content">
+                                <div class="method-output" id="rot13Decode">
+                                    <span class="placeholder-text">ROT13 decoded text will appear here</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="method-group" onclick="toggleMethod(this)">
+                            <div class="method-header">
+                                <span class="method-name">Caesar Decode (shift -3)</span>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="method-content">
+                                <div class="method-output" id="caesarDecode">
+                                    <span class="placeholder-text">Caesar decoded text will appear here</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="method-group" onclick="toggleMethod(this)">
+                            <div class="method-header">
+                                <span class="method-name">Atbash Decode</span>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="method-content">
+                                <div class="method-output" id="atbashDecode">
+                                    <span class="placeholder-text">Atbash decoded text will appear here</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="category-group">
+                        <div class="category-title">Alternative Decodings</div>
+                        
+                        <div class="method-group" onclick="toggleMethod(this)">
+                            <div class="method-header">
+                                <span class="method-name">Morse Decode</span>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="method-content">
+                                <div class="method-output" id="morseDecode">
+                                    <span class="placeholder-text">Morse decoded text will appear here</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="method-group" onclick="toggleMethod(this)">
+                            <div class="method-header">
+                                <span class="method-name">Quoted-Printable Decode</span>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="method-content">
+                                <div class="method-output" id="quotedPrintableDecode">
+                                    <span class="placeholder-text">Quoted-printable decoded text will appear here</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">HASH</div>
+                    
+                    <div class="category-group">
+                        <div class="category-title">Cryptographic Hashes</div>
+                        
+                        <div class="method-group" onclick="toggleMethod(this)">
+                            <div class="method-header">
+                                <span class="method-name">MD5</span>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="method-content">
+                                <div class="method-output" id="md5Hash">
+                                    <span class="placeholder-text">MD5 hash will appear here</span>
+                                    <button class="copy-button" onclick="copyToClipboard('md5Hash')">Copy</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="method-group" onclick="toggleMethod(this)">
+                            <div class="method-header">
+                                <span class="method-name">SHA-1</span>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="method-content">
+                                <div class="method-output" id="sha1Hash">
+                                    <span class="placeholder-text">SHA-1 hash will appear here</span>
+                                    <button class="copy-button" onclick="copyToClipboard('sha1Hash')">Copy</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="method-group" onclick="toggleMethod(this)">
+                            <div class="method-header">
+                                <span class="method-name">SHA-256</span>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="method-content">
+                                <div class="method-output" id="sha256Hash">
+                                    <span class="placeholder-text">SHA-256 hash will appear here</span>
+                                    <button class="copy-button" onclick="copyToClipboard('sha256Hash')">Copy</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="method-group" onclick="toggleMethod(this)">
+                            <div class="method-header">
+                                <span class="method-name">SHA-512</span>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="method-content">
+                                <div class="method-output" id="sha512Hash">
+                                    <span class="placeholder-text">SHA-512 hash will appear here</span>
+                                    <button class="copy-button" onclick="copyToClipboard('sha512Hash')">Copy</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="category-group">
+                        <div class="category-title">Non-Cryptographic Hashes</div>
+                        
+                        <div class="method-group" onclick="toggleMethod(this)">
+                            <div class="method-header">
+                                <span class="method-name">CRC32</span>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="method-content">
+                                <div class="method-output" id="crc32Hash">
+                                    <span class="placeholder-text">CRC32 hash will appear here</span>
+                                    <button class="copy-button" onclick="copyToClipboard('crc32Hash')">Copy</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="browser-tab" class="tab-content">
+            <div class="header">
+                <div class="logo">Browser Info</div>
+                <div class="subtitle">Detailed information about your browser and device</div>
+            </div>
+
+            <div class="disclaimer">
+                This information is collected locally in your browser and is not sent to any servers.
+            </div>
+
+            <div class="browser-info-grid">
+                <div class="info-category">
+                    <div class="info-category-title">Browser Information</div>
+                    <div class="info-item">
+                        <span class="info-label">User Agent:</span>
+                        <span class="info-value" id="userAgent">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Browser Name:</span>
+                        <span class="info-value" id="browserName">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Browser Version:</span>
+                        <span class="info-value" id="browserVersion">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Platform:</span>
+                        <span class="info-value" id="platform">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Languages:</span>
+                        <span class="info-value" id="languages">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Cookies Enabled:</span>
+                        <span class="info-value" id="cookiesEnabled">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Java Enabled:</span>
+                        <span class="info-value" id="javaEnabled">-</span>
+                    </div>
+                </div>
+
+                <div class="info-category">
+                    <div class="info-category-title">Screen Information</div>
+                    <div class="info-item">
+                        <span class="info-label">Screen Resolution:</span>
+                        <span class="info-value" id="screenResolution">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Available Screen:</span>
+                        <span class="info-value" id="availableScreen">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Color Depth:</span>
+                        <span class="info-value" id="colorDepth">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Pixel Depth:</span>
+                        <span class="info-value" id="pixelDepth">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Viewport Size:</span>
+                        <span class="info-value" id="viewportSize">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Device Pixel Ratio:</span>
+                        <span class="info-value" id="devicePixelRatio">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Screen Orientation:</span>
+                        <span class="info-value" id="screenOrientation">-</span>
+                    </div>
+                </div>
+
+                <div class="info-category">
+                    <div class="info-category-title">Network Information</div>
+                    <div class="info-item">
+                        <span class="info-label">Online Status:</span>
+                        <span class="info-value" id="onlineStatus">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Connection Type:</span>
+                        <span class="info-value" id="connectionType">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Effective Type:</span>
+                        <span class="info-value" id="effectiveType">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Downlink:</span>
+                        <span class="info-value" id="downlink">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">RTT:</span>
+                        <span class="info-value" id="rtt">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Save Data Mode:</span>
+                        <span class="info-value" id="saveData">-</span>
+                    </div>
+                </div>
+
+                <div class="info-category">
+                    <div class="info-category-title">Date & Time</div>
+                    <div class="info-item">
+                        <span class="info-label">Current Time:</span>
+                        <span class="info-value" id="currentTime">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Timezone:</span>
+                        <span class="info-value" id="timezone">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Timezone Offset:</span>
+                        <span class="info-value" id="timezoneOffset">-</span>
+                    </div>
+                </div>
+
+                <div class="info-category">
+                    <div class="info-category-title">Hardware Information</div>
+                    <div class="info-item">
+                        <span class="info-label">CPU Cores:</span>
+                        <span class="info-value" id="cpuCores">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Memory (approx):</span>
+                        <span class="info-value" id="memory">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Touch Support:</span>
+                        <span class="info-value" id="touchSupport">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Max Touch Points:</span>
+                        <span class="info-value" id="maxTouchPoints">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Do Not Track:</span>
+                        <span class="info-value" id="doNotTrack">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">WebDriver:</span>
+                        <span class="info-value" id="webdriver">-</span>
+                    </div>
+                </div>
+                
+                <div class="info-category">
+                    <div class="info-category-title">Performance & Timing</div>
+                    <div class="info-item">
+                        <span class="info-label">Page Load Time:</span>
+                        <span class="info-value" id="pageLoadTime">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">DOM Content Loaded:</span>
+                        <span class="info-value" id="domContentLoaded">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">DNS Lookup Time:</span>
+                        <span class="info-value" id="dnsLookup">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Server Response Time:</span>
+                        <span class="info-value" id="serverResponse">-</span>
+                    </div>
+                </div>                
+                <div class="info-category">
+                    <div class="info-category-title">Geolocation & Media</div>
+                    <div class="info-item">
+                        <span class="info-label">Geolocation Support:</span>
+                        <span class="info-value" id="geolocationSupport">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Audio Input Devices:</span>
+                        <span class="info-value" id="audioInputDevices">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Video Input Devices:</span>
+                        <span class="info-value" id="videoInputDevices">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Audio Output Devices:</span>
+                        <span class="info-value" id="audioOutputDevices">-</span>
+                    </div>
+                </div>
+                
+                <div class="info-category">
+                    <div class="info-category-title">WebGL Information</div>
+                    <div class="info-item">
+                        <span class="info-label">WebGL Support:</span>
+                        <span class="info-value" id="webglSupport">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">WebGL Version:</span>
+                        <span class="info-value" id="webglVersion">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">WebGL Vendor:</span>
+                        <span class="info-value" id="webglVendor">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">WebGL Renderer:</span>
+                        <span class="info-value" id="webglRenderer">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Shading Language:</span>
+                        <span class="info-value" id="webglShadingLanguage">-</span>
+                    </div>
+                </div>
+                
+                <div class="info-category">
+                    <div class="info-category-title">Battery Information</div>
+                    <div class="info-item">
+                        <span class="info-label">Battery Level:</span>
+                        <span class="info-value" id="batteryLevel">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Battery Charging:</span>
+                        <span class="info-value" id="batteryCharging">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Charging Time:</span>
+                        <span class="info-value" id="chargingTime">-</span>
+                    </div>
+                </div>
+                
+                <div class="info-category">
+                    <div class="info-category-title">Web API Support</div>
+                    <div class="info-item">
+                        <span class="info-label">Web Workers:</span>
+                        <span class="info-value" id="webWorkersSupport">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Service Workers:</span>
+                        <span class="info-value" id="serviceWorkerSupport">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Notifications:</span>
+                        <span class="info-value" id="notificationsSupport">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">WebRTC:</span>
+                        <span class="info-value" id="webRTCSupport">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">WebSockets:</span>
+                        <span class="info-value" id="webSocketsSupport">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Web Audio:</span>
+                        <span class="info-value" id="webAudioSupport">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">File API:</span>
+                        <span class="info-value" id="fileAPISupport">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Drag & Drop:</span>
+                        <span class="info-value" id="dragDropSupport">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Fullscreen:</span>
+                        <span class="info-value" id="fullscreenSupport">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Web Crypto:</span>
+                        <span class="info-value" id="webCryptoSupport">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">WebAssembly:</span>
+                        <span class="info-value" id="webAssemblySupport">-</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="assets/javascript/extras.js"></script>
+    <div class="custom-cursor" id="customCursor"></div>
+</body>
+</html>
