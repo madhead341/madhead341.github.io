@@ -3,6 +3,11 @@
     padding: 0;
     box-sizing: border-box;
     cursor: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-drag: none;
 }
 
 body {
@@ -10,6 +15,11 @@ body {
     background: #000;
     color: #fff;
     overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-drag: none;
 }
 
 .cursor {
